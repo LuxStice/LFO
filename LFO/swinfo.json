@@ -5,7 +5,7 @@
   "description": "Pretty plumes and more!",
   "source": "",
   "version": "0.1.0",
-  "version_check": "",
+  "version_check": "https://raw.githubusercontent.com/LuxStice/LuxsFlamesAndOrnaments/main/LFO/swinfo.json",
   "dependencies": [
     {
       "id":  "SpaceWarp",

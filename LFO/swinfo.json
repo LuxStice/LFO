@@ -3,7 +3,7 @@
   "author": "LuxStice",
   "name": "Lux's Flames and Ornaments",
   "description": "Pretty plumes and more!",
-  "source": "",
+  "source": "https://raw.githubusercontent.com/LuxStice/LuxsFlamesAndOrnaments/main/LFO/swinfo.json",
   "version": "0.2.0",
   "version_check": "",
   "dependencies": [

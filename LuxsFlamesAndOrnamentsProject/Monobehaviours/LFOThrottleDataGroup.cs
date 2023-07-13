@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace LuxsFlamesAndOrnaments
+namespace LuxsFlamesAndOrnaments.Monobehaviours
 {
     [ExecuteInEditMode]
     public class LFOThrottleDataMasterGroup : KerbalMonoBehaviour, IEngineFXData
@@ -40,7 +40,7 @@ namespace LuxsFlamesAndOrnaments
             if (Application.isEditor)
             {
                 Active = true;
-            } 
+            }
             throttleDatas = GetComponentsInChildren<LFOThrottleData>(true).ToList();
             rng = new System.Random(gameObject.GetHashCode());
             NewSeedForAll();
@@ -56,24 +56,24 @@ namespace LuxsFlamesAndOrnaments
             throttleDatas.ForEach(a => a.ToggleVisibility(doTurnOn));
         }
 
-        void OnEnable()
-        {
-            this.TriggerUpdateVisuals = (Action<float, float, float, Vector3>)Delegate.Combine(this.TriggerUpdateVisuals, new Action<float, float, float, Vector3>(this.UpdateVisuals));
-        }
 
         private void UpdateVisuals(float curThrottle, float curAtmo, float curAngleVel, Vector3 curAccelerationDir)
         {
             throttleDatas.ForEach(a => a.TriggerUpdateVisuals(curThrottle, curAtmo, curAngleVel, curAccelerationDir));
         }
 
+        void OnEnable()
+        {
+            TriggerUpdateVisuals += UpdateVisuals;
+        }
         private void OnDisable()
         {
-            this.TriggerUpdateVisuals = (Action<float, float, float, Vector3>)Delegate.Remove(this.TriggerUpdateVisuals, new Action<float, float, float, Vector3>(this.UpdateVisuals));
+            TriggerUpdateVisuals -= UpdateVisuals;
         }
 
         void Update()
         {
-            if (OverrideControls && Application.isEditor)
+            if (Application.isEditor)
             {
                 if (GroupThrottle != oldThrottle || GroupAtmo != oldAtmo)
                 {

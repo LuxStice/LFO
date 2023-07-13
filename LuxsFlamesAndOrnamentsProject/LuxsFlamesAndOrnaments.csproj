@@ -8,25 +8,32 @@
         <AssemblyName>lfo</AssemblyName>
         <Product>Lux's Flames and Ornaments</Product>
         <Description>Pretty plumes and more!</Description>
-        <Version>0.1.0</Version>
+        <Version>0.2.0</Version>
         <RestoreAdditionalProjectSources>
             https://nuget.spacewarp.org/v3/index.json
         </RestoreAdditionalProjectSources>
         <RootNamespace>LuxsFlamesAndOrnaments</RootNamespace>
         <ModId Condition="'$(ModId)'==''">LFO</ModId>
     </PropertyGroup>
+    <ItemGroup>
+      <Compile Remove="UITK\**" />
+      <EmbeddedResource Remove="UITK\**" />
+      <None Remove="UITK\**" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Editor\LFOEditor.cs" />
+    </ItemGroup>
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp">
 			<HintPath>..\external_dlls\Assembly-CSharp.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
-	</ItemGroup>
-	<ItemGroup>
-		<Reference Include="SpaceWarp">
-			<HintPath>..\external_dlls\SpaceWarp.dll</HintPath>
-			<Publicize>true</Publicize>
-			<Private>false</Private>
+		<Reference Include="Unity.Addressables">
+		  <HintPath>..\..\Patchouli Library\external_dlls\Unity.Addressables.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.ResourceManager">
+		  <HintPath>D:\SteamLibrary\steamapps\common\Kerbal Space Program 2 - Copia\KSP2_x64_Data\Managed\Unity.ResourceManager.dll</HintPath>
 		</Reference>
 	</ItemGroup>
     <ItemGroup>
@@ -35,8 +42,13 @@
         <PackageReference Include="BepInEx.Core" Version="5.*" />
         <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
         <PackageReference Include="HarmonyX" Version="2.10.1" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="UnityEngine.Modules" Version="2020.3.33" IncludeAssets="compile" />
+		<PackageReference Include="SpaceWarp" Version="1.3.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+		<PackageReference Include="UitkForKsp2" Version="1.2.0" />
+        <PackageReference Include="UnityEngine.Modules" Version="2020.3.33.1" IncludeAssets="compile" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Editor\" />
     </ItemGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Command="rm -rf &quot;$(ProjectDir)..\$(ConfigurationName)\&quot;&#xA;echo d | xcopy /y /s &quot;$(ProjectDir)..\$(ModId)\&quot; &quot;$(ProjectDir)..\$(ConfigurationName)\BepInEx\plugins\$(ModId)\&quot;&#xA;echo f | xcopy /y &quot;$(TargetPath)&quot; &quot;$(ProjectDir)..\$(ConfigurationName)\BepInEx\plugins\$(ModId)\$(ModId).dll&quot;&#xA;if $(ConfigurationName) == Debug echo f | xcopy /y &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(ProjectDir)..\$(ConfigurationName)\BepInEx\plugins\$(ModId)\$(ModId).pdb&quot;&#xA;xcopy /y &quot;$(ProjectDir)..\LICENSE&quot; &quot;$(ProjectDir)..\$(ConfigurationName)\BepInEx\plugins\$(ModId)\&quot;&#xA;echo f | xcopy /y &quot;$(ProjectDir)..\README.md&quot; &quot;$(ProjectDir)..\$(ConfigurationName)\BepInEx\plugins\$(ModId)\README.txt&quot;" />

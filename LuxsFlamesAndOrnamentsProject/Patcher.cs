@@ -26,8 +26,8 @@ namespace LuxsFlamesAndOrnaments
             }
         }
 
-        //[HarmonyPrefix]
-        //[HarmonyPatch(typeof(SimulationObjectView), nameof(SimulationObjectView.InitializeView))]
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(SimulationObjectView), nameof(SimulationObjectView.InitializeView))]
         internal static void CreatePlumesForSimObjView(ref GameObject instance, IUniverseView universe, SimulationObjectModel model)
         {
             if (model is not null && model.Part is not null)

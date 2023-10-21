@@ -161,7 +161,7 @@ namespace LuxsFlamesAndOrnaments.Settings
       ThrottleVFXManager.FXModeActionEvent fxModeActionEvent2 = fxModeActionEvent1;
       if (fxModeActionEvent2.ActionEvents == null)
         fxModeActionEvent2.ActionEvents = new ThrottleVFXManager.FXActionEvent[0];
-      ThrottleVFXManager.FXActionEvent fxActionEvent1 = ((IEnumerable<ThrottleVFXManager.FXActionEvent>) fxModeActionEvent1.ActionEvents).FirstOrDefault<ThrottleVFXManager.FXActionEvent>((Func<ThrottleVFXManager.FXActionEvent, bool>) (a => a.ModeEvent == 10));
+      var fxActionEvent1 = fxModeActionEvent1.ActionEvents.FirstOrDefault<ThrottleVFXManager.FXActionEvent>(a => a.ModeEvent == FXmodeEvent.FXModeRunning);
       if (fxActionEvent1 == null)
       {
         fxModeActionEvent1.ActionEvents = CollectionExtensions.AddItem<ThrottleVFXManager.FXActionEvent>((IEnumerable<ThrottleVFXManager.FXActionEvent>) fxModeActionEvent1.ActionEvents, new ThrottleVFXManager.FXActionEvent()
@@ -169,7 +169,7 @@ namespace LuxsFlamesAndOrnaments.Settings
           ModeEvent = (ThrottleVFXManager.FXmodeEvent) 10,
           EngineEffects = new ThrottleVFXManager.EngineEffect[0]
         }).ToArray<ThrottleVFXManager.FXActionEvent>();
-        fxActionEvent1 = ((IEnumerable<ThrottleVFXManager.FXActionEvent>) fxModeActionEvent1.ActionEvents).FirstOrDefault<ThrottleVFXManager.FXActionEvent>((Func<ThrottleVFXManager.FXActionEvent, bool>) (a => a.ModeEvent == 10));
+        fxActionEvent1 = fxModeActionEvent1.ActionEvents.FirstOrDefault<ThrottleVFXManager.FXActionEvent>(a => a.ModeEvent == FXmodeEvent.FXModeRunning);
       }
       ThrottleVFXManager.FXActionEvent fxActionEvent2 = fxActionEvent1;
       if (fxActionEvent2.EngineEffects == null)

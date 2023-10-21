@@ -1,5 +1,13 @@
-﻿using BepInEx;
+﻿// Decompiled with JetBrains decompiler
+// Type: LuxsFlamesAndOrnaments.LuxsFlamesAndOrnamentsPlugin
+// Assembly: lfo, Version=0.9.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: 2965BBBA-49CA-4B3F-B886-3391858B1BD3
+// Assembly location: C:\Kerbal Space Program 2\BepInEx\plugins\lfo\lfo.dll
+
+using BepInEx;
 using HarmonyLib;
+using KSP.Game.Flow;
+using SpaceWarp.API.Loading;
 using KSP.UI.Binding;
 using SpaceWarp;
 using SpaceWarp.API.Assets;
@@ -19,6 +27,8 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using KSP.Game.Flow;
 using RTG;
 using System.Runtime.InteropServices;
+// using System;
+// using System.Collections.Generic;
 
 namespace LuxsFlamesAndOrnaments;
 
@@ -32,7 +42,7 @@ public class LuxsFlamesAndOrnamentsPlugin : BaseSpaceWarpPlugin
     public const string ModVer = MyPluginInfo.PLUGIN_VERSION;
     public static LuxsFlamesAndOrnamentsPlugin Instance { get; set; }
 
-    public static void Log(LogLevel Level, object Data) => Instance.Logger.Log(Level, Data);
+    public static void LogLevel(LogLevel Level, object Data) => Instance.Logger.Log(Level, Data);
     public static void Log(object Data) => Instance.Logger.LogInfo(Data);
     public static void LogDebug(object Data) => Instance.Logger.LogDebug(Data);
     public static void LogWarning(object Data) => Instance.Logger.LogWarning(Data);
@@ -95,42 +105,47 @@ public class LuxsFlamesAndOrnamentsPlugin : BaseSpaceWarpPlugin
 
     public class LoadShadersFlowAction : FlowAction
     {
-        private List<string> keys;
+        private List<string> requestedShaders;
         public LoadShadersFlowAction(List<string> requestedShaders) : base("Loading LFO Shaders...")
         {
-            this.keys = requestedShaders;
+            this.requestedShaders = requestedShaders;
         }
 
         public override void DoAction(Action resolve, Action<string> reject)
         {
-            for (int i = 0; i < keys.Count; i++)
+            LuxsFlamesAndOrnamentsPlugin.Log((object)("Loading LFO Shaders. " + string.Join(", ", (IEnumerable<string>)this.requestedShaders)));
+            for (int index = 0; index < this.requestedShaders.Count; ++index)
             {
-                string toLoad = keys[i];
-
-                try
+                string requestedShader = this.requestedShaders[index];
+                if (!LFO.Instance.LoadedShaders.ContainsKey(requestedShader))
                 {
-                    string path = LFO.RESOURCES_PATH + toLoad.ToLower() + ".prefab";
-                    GameObject gameObject = SpaceWarp.API.Assets.AssetManager.GetAsset<GameObject>(path);
-
-                    if (gameObject is null)
-                        throw new ArgumentNullException($"Couldn't find material at {toLoad}");
-                    if (!gameObject.TryGetComponent(out Renderer renderer))
-                        throw new ArgumentNullException($"Loaded object at {gameObject.name} doesn't have a renderer!");
-                    if (renderer.material is null)
-                        throw new ArgumentNullException($"Loaded object at {gameObject.name}'s renderer doesn't have a material!");
-                    if (renderer.material.shader is null)
-                        throw new ArgumentNullException($"Loaded object at {gameObject.name}'s material doesn't have a shader!");
-                    if (renderer.material.shader.name != toLoad)
-                        Debug.LogWarning($"Shader name '{renderer.material.shader.name}' is different from key '{toLoad}'!");
-
-                    LFO.Instance.LoadedShaders.Add(toLoad, renderer.material.shader);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogException(e);
+                    string str = LFO.SHADERS_PATH + requestedShader.Replace('/', '-') + ".mat";
+                    Material asset;
+                    try
+                    {
+                        asset = AssetManager.GetAsset<Material>(str);
+                    }
+                    catch (IndexOutOfRangeException ex)
+                    {
+                        LuxsFlamesAndOrnamentsPlugin.LogError((object)("Error loading " + requestedShader + ". Shader material does not exists or can't be found.\n Key: " + str));
+                        continue;
+                    }
+                    if (asset == null)
+                        LuxsFlamesAndOrnamentsPlugin.LogError((object)("Error loading " + requestedShader + ". Loaded object at " + str + "'s is not a material!"));
+                    else if (asset.shader == null)
+                    {
+                        LuxsFlamesAndOrnamentsPlugin.LogError((object)("Error loading " + requestedShader + ". Loaded object at " + str + "'s material doesn't have a shader!"));
+                    }
+                    else
+                    {
+                        if (asset.shader.name.ToLower() != requestedShader.ToLower())
+                            LuxsFlamesAndOrnamentsPlugin.LogWarning((object)("Shader name '" + asset.shader.name.ToLower() + "' is different from key '" + requestedShader.ToLower() + "'!"));
+                        LFO.Instance.LoadedShaders.Add(requestedShader, asset.shader);
+                    }
                 }
             }
-
+            LFO.Instance.LoadedShaders.Keys.ForEach<string>((Action<string>)(a => this.requestedShaders.Remove(a)));
+            LuxsFlamesAndOrnamentsPlugin.Log((object)("LFO Shaders loaded. " + string.Join(", ", (IEnumerable<string>)LFO.Instance.LoadedShaders.Keys)));
             resolve();
         }
 

@@ -1,3 +1,9 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: Vec4Conv
+// Assembly: lfo, Version=0.9.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: 2965BBBA-49CA-4B3F-B886-3391858B1BD3
+// Assembly location: C:\Kerbal Space Program 2\BepInEx\plugins\lfo\lfo.dll
+
 using UnityEngine;
 using Newtonsoft.Json;
 using System;
@@ -14,36 +20,36 @@ public class Vec4Conv : JsonConverter
         return false;
     }
 
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-    {
-        JObject jObject = JObject.Load(reader);
-        Vector4 toReturn = new();
+  public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+  {
+    JObject jobject = JObject.Load(reader);
+    Vector4 target = new Vector4();
+    
+    target.x = jobject["x"].ToObject<float>();
+    target.y = jobject["y"].ToObject<float>();
+    target.z = jobject["z"].ToObject<float>();
+    target.w = jobject["w"].ToObject<float>();
+    
+    serializer.Populate(jobject.CreateReader(), (object) target);
+    
+    return (object) target;
+  }
 
-        toReturn.x = jObject["x"].ToObject<float>();
-        toReturn.y = jObject["y"].ToObject<float>();
-        toReturn.z = jObject["z"].ToObject<float>();
-        toReturn.w = jObject["w"].ToObject<float>();
+  public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+  {
+    Vector4 vector4 = (Vector4) value;
 
-        serializer.Populate(jObject.CreateReader(), toReturn);
-
-        return toReturn;
-    }
-
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        Vector4 v = (Vector4)value;
-
-        writer.WriteStartObject();
-        writer.WritePropertyName("x");
-        writer.WriteValue(v.x);
-        writer.WritePropertyName("y");
-        writer.WriteValue(v.y);
-        writer.WritePropertyName("z");
-        writer.WriteValue(v.z);
-        writer.WritePropertyName("w");
-        writer.WriteValue(v.w);
-        writer.WriteEndObject();
-    }
+    writer.WriteStartObject();
+    writer.WritePropertyName("x");
+    writer.WriteValue(vector4.x);
+    writer.WritePropertyName("y");
+    writer.WriteValue(vector4.y);
+    writer.WritePropertyName("z");
+    writer.WriteValue(vector4.z);
+    writer.WritePropertyName("w");
+    writer.WriteValue(vector4.w);
+    writer.WriteEndObject();
+  }
 }
 
 public class Vec3Conv : JsonConverter
@@ -59,29 +65,29 @@ public class Vec3Conv : JsonConverter
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        JObject jObject = JObject.Load(reader);
-        Vector3 toReturn = new();
-
-        toReturn.x = jObject["x"].ToObject<float>();
-        toReturn.y = jObject["y"].ToObject<float>();
-        toReturn.z = jObject["z"].ToObject<float>();
-
-        serializer.Populate(jObject.CreateReader(), toReturn);
-
-        return toReturn;
+        JObject jobject = JObject.Load(reader);
+        Vector3 target = new Vector3();
+        
+        target.x = jobject["x"].ToObject<float>();
+        target.y = jobject["y"].ToObject<float>();
+        target.z = jobject["z"].ToObject<float>();
+        
+        serializer.Populate(jobject.CreateReader(), (object)target);
+        
+        return (object)target;
     }
 
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        Vector3 v = (Vector3)value;
+        Vector3 vector3 = (Vector3)value;
 
         writer.WriteStartObject();
         writer.WritePropertyName("x");
-        writer.WriteValue(v.x);
+        writer.WriteValue(vector3.x);
         writer.WritePropertyName("y");
-        writer.WriteValue(v.y);
+        writer.WriteValue(vector3.y);
         writer.WritePropertyName("z");
-        writer.WriteValue(v.z);
+        writer.WriteValue(vector3.z);
         writer.WriteEndObject();
     }
 }
@@ -99,29 +105,30 @@ public class Vec2Conv : JsonConverter
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        JObject jObject = JObject.Load(reader);
-        Vector2 toReturn = new();
-
-        toReturn.x = jObject["x"].ToObject<float>();
-        toReturn.y = jObject["y"].ToObject<float>();
-
-        serializer.Populate(jObject.CreateReader(), toReturn);
-
-        return toReturn;
+        JObject jobject = JObject.Load(reader);
+        Vector2 target = new Vector2();
+        
+        target.x = jobject["x"].ToObject<float>();
+        target.y = jobject["y"].ToObject<float>();
+        
+        serializer.Populate(jobject.CreateReader(), (object)target);
+        
+        return (object)target;
     }
 
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        Vector2 v = (Vector2)value;
+        Vector2 vector2 = (Vector2)value;
 
         writer.WriteStartObject();
         writer.WritePropertyName("x");
-        writer.WriteValue(v.x);
+        writer.WriteValue(vector2.x);
         writer.WritePropertyName("y");
-        writer.WriteValue(v.y);
+        writer.WriteValue(vector2.y);
         writer.WriteEndObject();
     }
 }
+
 public class ColorConv : JsonConverter
 {
     public override bool CanConvert(Type objectType)
@@ -135,32 +142,32 @@ public class ColorConv : JsonConverter
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        JObject jObject = JObject.Load(reader);
-        Color toReturn = new();
-
-        toReturn.r = jObject["r"].ToObject<float>();
-        toReturn.g = jObject["g"].ToObject<float>();
-        toReturn.b = jObject["b"].ToObject<float>();
-        toReturn.a = jObject["a"].ToObject<float>();
-
-        serializer.Populate(jObject.CreateReader(), toReturn);
-
-        return toReturn;
+        JObject jobject = JObject.Load(reader);
+        Color target = new Color();
+        
+        target.r = jobject["r"].ToObject<float>();
+        target.g = jobject["g"].ToObject<float>();
+        target.b = jobject["b"].ToObject<float>();
+        target.a = jobject["a"].ToObject<float>();
+        
+        serializer.Populate(jobject.CreateReader(), (object)target);
+        
+        return (object)target;
     }
 
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        Color v = (Color)value;
+        Color color = (Color)value;
 
         writer.WriteStartObject();
         writer.WritePropertyName("r");
-        writer.WriteValue(v.r);
+        writer.WriteValue(color.r);
         writer.WritePropertyName("g");
-        writer.WriteValue(v.g);
+        writer.WriteValue(color.g);
         writer.WritePropertyName("b");
-        writer.WriteValue(v.b);
+        writer.WriteValue(color.b);
         writer.WritePropertyName("a");
-        writer.WriteValue(v.a);
+        writer.WriteValue(color.a);
         writer.WriteEndObject();
     }
 }

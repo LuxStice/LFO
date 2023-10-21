@@ -27,8 +27,9 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using KSP.Game.Flow;
 using RTG;
 using System.Runtime.InteropServices;
-// using System;
-// using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
+
 
 namespace LuxsFlamesAndOrnaments;
 
@@ -105,21 +106,21 @@ public class LuxsFlamesAndOrnamentsPlugin : BaseSpaceWarpPlugin
 
     public class LoadShadersFlowAction : FlowAction
     {
-        private List<string> requestedShaders;
+        private List<string> keys;
         public LoadShadersFlowAction(List<string> requestedShaders) : base("Loading LFO Shaders...")
         {
-            this.requestedShaders = requestedShaders;
+            this.keys = requestedShaders;
         }
 
         public override void DoAction(Action resolve, Action<string> reject)
         {
-            LuxsFlamesAndOrnamentsPlugin.Log((object)("Loading LFO Shaders. " + string.Join(", ", (IEnumerable<string>)this.requestedShaders)));
-            for (int index = 0; index < this.requestedShaders.Count; ++index)
+            Log("Loading LFO Shaders. " + string.Join(", ", keys));
+            for (int i = 0; i < keys.Count; i++) // SDR: was ++i in the 0.9.0 decompile, was i++ in 0.2.1
             {
-                string requestedShader = this.requestedShaders[index];
-                if (!LFO.Instance.LoadedShaders.ContainsKey(requestedShader))
+                string toLoad = keys[i];
+                if (!LFO.Instance.LoadedShaders.ContainsKey(toLoad))
                 {
-                    string str = LFO.SHADERS_PATH + requestedShader.Replace('/', '-') + ".mat";
+                    string str = LFO.SHADERS_PATH + toLoad.Replace('/', '-') + ".mat";
                     Material asset;
                     try
                     {
@@ -127,25 +128,29 @@ public class LuxsFlamesAndOrnamentsPlugin : BaseSpaceWarpPlugin
                     }
                     catch (IndexOutOfRangeException ex)
                     {
-                        LuxsFlamesAndOrnamentsPlugin.LogError((object)("Error loading " + requestedShader + ". Shader material does not exists or can't be found.\n Key: " + str));
+                        LogError($"Error loading {toLoad}. Shader material does not exists or can't be found.\n Key: {str}");
                         continue;
                     }
                     if (asset == null)
-                        LuxsFlamesAndOrnamentsPlugin.LogError((object)("Error loading " + requestedShader + ". Loaded object at " + str + "'s is not a material!"));
+                        LogError($"Error loading {toLoad}. Loaded object at {str}'s is not a material!");
                     else if (asset.shader == null)
                     {
-                        LuxsFlamesAndOrnamentsPlugin.LogError((object)("Error loading " + requestedShader + ". Loaded object at " + str + "'s material doesn't have a shader!"));
+                        LogError($"Error loading {toLoad}. Loaded object at {str}'s material doesn't have a shader!");
                     }
                     else
                     {
-                        if (asset.shader.name.ToLower() != requestedShader.ToLower())
-                            LuxsFlamesAndOrnamentsPlugin.LogWarning((object)("Shader name '" + asset.shader.name.ToLower() + "' is different from key '" + requestedShader.ToLower() + "'!"));
-                        LFO.Instance.LoadedShaders.Add(requestedShader, asset.shader);
+                        if (asset.shader.name.ToLower() != toLoad.ToLower())
+                            LogWarning((object)($"Shader name '{asset.shader.name.ToLower()}' is different from key '{toLoad.ToLower()}'!"));
+                        LFO.Instance.LoadedShaders.Add(toLoad, asset.shader);
                     }
                 }
             }
-            LFO.Instance.LoadedShaders.Keys.ForEach<string>((Action<string>)(a => this.requestedShaders.Remove(a)));
-            LuxsFlamesAndOrnamentsPlugin.Log((object)("LFO Shaders loaded. " + string.Join(", ", (IEnumerable<string>)LFO.Instance.LoadedShaders.Keys)));
+            // LFO.Instance.LoadedShaders.Keys.ForEach<string>((Action<string>)(a => keys.Remove(a)));
+            foreach (var shader in LFO.Instance.LoadedShaders.Keys)
+            {
+                keys.Remove(shader);
+            }
+            Log("LFO Shaders loaded. " + string.Join(", ", LFO.Instance.LoadedShaders.Keys));
             resolve();
         }
 

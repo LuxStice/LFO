@@ -1,5 +1,14 @@
-﻿using KSP.Game;
+﻿// Decompiled with JetBrains decompiler
+// Type: LuxsFlamesAndOrnaments.LFO
+// Assembly: lfo, Version=0.9.0.0, Culture=neutral, PublicKeyToken=null
+// MVID: 2965BBBA-49CA-4B3F-B886-3391858B1BD3
+// Assembly location: C:\Kerbal Space Program 2\BepInEx\plugins\lfo\lfo.dll
+
+using KSP.Game;
 using LuxsFlamesAndOrnaments.Settings;
+using SpaceWarp.API.Assets;
+// using System;
+// using System.Collections.Generic;
 using UnityEngine;
 using static LuxsFlamesAndOrnaments.LuxsFlamesAndOrnamentsPlugin;
 
@@ -11,22 +20,26 @@ namespace LuxsFlamesAndOrnaments
         public const string MESHES_PATH = RESOURCES_PATH + "meshes/";
         public const string NOISES_PATH = RESOURCES_PATH + "noise/";
         public const string TEXTURES_PATH = RESOURCES_PATH + "textures/";
+        public const string PROFILES_PATH = RESOURCES_PATH + "profiles/";
+        public const string SHADERS_PATH = RESOURCES_PATH + "shaders/";
         public static LFO Instance
         {
             get
             {
-                if (_instance == null)
-                    new LFO();
-                return _instance;
+                if (LFO._instance == null)
+                {
+                    LFO lfo = new LFO();
+                }
+                return LFO._instance;
             }
         }
 
 
         private static LFO _instance;
 
-        public Dictionary<string, LFOConfig> PartNameToConfigDict = new();
-        public Dictionary<string, Dictionary<string, PlumeConfig>> GameObjectToPlumeDict = new();
-        public Dictionary<string, Shader> LoadedShaders = new();
+        public Dictionary<string, LFOConfig> PartNameToConfigDict = new Dictionary<string, LFOConfig>();
+        public Dictionary<string, Dictionary<string, PlumeConfig>> GameObjectToPlumeDict = new Dictionary<string, Dictionary<string, PlumeConfig>>();
+        public Dictionary<string, Shader> LoadedShaders = new Dictionary<string, Shader>();
 
         public LFO()
         {
@@ -37,11 +50,11 @@ namespace LuxsFlamesAndOrnaments
         {
             if (!Instance.PartNameToConfigDict.ContainsKey(partName))
             {
-                Instance.PartNameToConfigDict.Add(partName, new());
+            	Instance.PartNameToConfigDict.Add(partName, new LFOConfig());
             }
             if (!Instance.GameObjectToPlumeDict.ContainsKey(partName))
             {
-                Instance.GameObjectToPlumeDict.Add(partName, new());
+            	Instance.GameObjectToPlumeDict.Add(partName, new Dictionary<string, PlumeConfig>());
             }
 
             Instance.PartNameToConfigDict[partName] = config;
@@ -54,11 +67,8 @@ namespace LuxsFlamesAndOrnaments
                 config = Instance.PartNameToConfigDict[partName];
                 return true;
             }
-            else
-            {
-                config = null;
-                return false;
-            }
+            config = (LFOConfig)null;
+            return false;
         }
 
         public static bool TryGetMesh(string meshPath, out Mesh mesh)
@@ -66,7 +76,7 @@ namespace LuxsFlamesAndOrnaments
             mesh = null;
             if (SpaceWarp.API.Assets.AssetManager.TryGetAsset(LFO.MESHES_PATH + meshPath.ToLower() + ".fbx", out GameObject fbxPrefab))
             {
-                if(fbxPrefab.TryGetComponent<SkinnedMeshRenderer>(out var skinnedRenderer))
+                if (fbxPrefab.TryGetComponent<SkinnedMeshRenderer>(out var skinnedRenderer))
                 {
                     mesh = skinnedRenderer.sharedMesh;
                 }
@@ -87,7 +97,12 @@ namespace LuxsFlamesAndOrnaments
             return false;
         }
 
-        public static Shader GetShader(string name) => Instance.LoadedShaders[name];
+        public static Shader GetShader(string name)
+        {
+            if (LFO.Instance.LoadedShaders.ContainsKey(name))
+                return LFO.Instance.LoadedShaders[name];
+            throw new IndexOutOfRangeException($"[LFO] Shader {name} is not present on internal shader collection. Check logs for more information.");
+        }
 
         internal static void RegisterPlumeConfig(string partName, string ID, PlumeConfig config)
         {
@@ -107,16 +122,14 @@ namespace LuxsFlamesAndOrnaments
                 Debug.LogWarning($"{partName} has no registered plume");
             }
         }
+
         internal static bool TryGetPlumeConfig(string partName, string ID, out PlumeConfig config)
         {
             if (Instance.GameObjectToPlumeDict.ContainsKey(partName))
                 return Instance.GameObjectToPlumeDict[partName].TryGetValue(ID, out config);
-            else
-            {
-                Debug.LogWarning($"{partName} has no registered plume");
-                config = null;
-                return false;
-            }
+            Debug.LogWarning($"{partName} has no registered plume");
+            config = (PlumeConfig)null;
+            return false;
         }
     }
 }

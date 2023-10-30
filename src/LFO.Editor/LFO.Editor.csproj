@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <DefaultItemExcludes>$(DefaultItemExcludes);Unity/Library/**</DefaultItemExcludes>
+        <DefaultItemExcludes>$(DefaultItemExcludes);Unity/**</DefaultItemExcludes>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
     <ItemGroup Label="NuGet package references">
         <!-- Add references to any NuGet packages you want to use in your mod here -->

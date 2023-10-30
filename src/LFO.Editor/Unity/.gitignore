@@ -78,3 +78,6 @@ crashlytics-build.properties
 # Packed Asset bundles
 /[Aa]ssets/[Aa]sset[Bb]undles.meta
 /[Aa]ssets/[Aa]sset[Bb]undles
+
+# Imported KSP2_x64
+/[Pp]ackages/[Kk][Ss][Pp]2_[Xx]64

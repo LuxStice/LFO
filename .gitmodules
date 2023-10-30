@@ -1,0 +1,3 @@
+[submodule "src/LFO.Editor/Unity/Packages/lfo.editor"]
+	path = src/LFO.Editor/Unity/Packages/lfo.editor
+	url = https://github.com/KSP2Community/LFO.Editor.git

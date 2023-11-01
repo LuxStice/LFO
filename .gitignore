@@ -13,6 +13,7 @@ _UpgradeReport_Files/
 [Nn]uget/
 [Ee]xternal_dlls/*
 ![Ee]xternal_dlls/PUT_EXTERNAL_DLLS_HERE
+plugin_template/assets/bundles/*.bundle
 
 # Rider
 .idea/

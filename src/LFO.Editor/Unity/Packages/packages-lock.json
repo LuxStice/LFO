@@ -9,6 +9,20 @@
       },
       "hash": "39f7d7c528fe6687bc223653dfb462808a3a3b8b"
     },
+    "com.unity.addressables": {
+      "version": "1.21.19",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.scriptablebuildpipeline": "1.21.21",
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.editorcoroutines": {
       "version": "1.0.0",
       "depth": 1,
@@ -70,7 +84,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.scriptablebuildpipeline": {
-      "version": "1.21.5",
+      "version": "1.21.21",
       "depth": 1,
       "source": "registry",
       "dependencies": {},

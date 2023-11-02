@@ -11,13 +11,13 @@ public class LoadShadersFlowAction : FlowAction
 
     public LoadShadersFlowAction(List<string> requestedShaders) : base("Loading LFO Shaders...")
     {
-        this._requestedShaders = requestedShaders;
+        _requestedShaders = requestedShaders;
     }
 
     public override void DoAction(Action resolve, Action<string> reject)
     {
         LFOPlugin.Log($"Loading LFO Shaders. " + string.Join(", ", _requestedShaders));
-        foreach (var toLoad in _requestedShaders)
+        foreach (string toLoad in _requestedShaders)
         {
             if (Shared.LFO.Instance.LoadedShaders.ContainsKey(toLoad))
             {
@@ -38,13 +38,13 @@ public class LoadShadersFlowAction : FlowAction
                 continue;
             }
 
-            if (material is null)
+            if (material == null)
             {
                 LFOPlugin.LogError($"Error loading {toLoad}. Loaded object at {path} is not a material!");
                 continue;
             }
 
-            if (material.shader is null)
+            if (material.shader == null)
             {
                 LFOPlugin.LogError(
                     $"Error loading {toLoad}. Loaded object at {path}'s material doesn't have a shader!");

@@ -54,6 +54,7 @@ public class LFOPlugin : BaseSpaceWarpPlugin
     {
         base.OnPreInitialized();
         Path = PluginFolderPath;
+        Assembly.LoadFrom(System.IO.Path.Combine(Path, "LFO.Deprecated.dll"));
         Assembly.LoadFrom(System.IO.Path.Combine(Path, "LFO.Editor.dll"));
     }
 
@@ -86,16 +87,16 @@ public class LFOPlugin : BaseSpaceWarpPlugin
         Shared.LFO.RegisterLFOConfig(config.PartName, config);
         assets.Add(new ValueTuple<string, UnityObject>($"lfo/plumes/{internalPath}", new TextAsset(jsonData)));
 
-        var filteredConfigs = config.PlumeConfigs!.Values
-            .SelectMany(
-                plumeConfigs => plumeConfigs,
-                (_, plumeConfig) => plumeConfig.ShaderSettings.ShaderName
-            )
-            .Where(toLoad => !RequestedShaders.Contains(toLoad));
-
-        foreach (var toLoad in filteredConfigs)
+        foreach (List<PlumeConfig> plumeConfigList in config.PlumeConfigs!.Values)
         {
-            RequestedShaders.Add(toLoad);
+            foreach (PlumeConfig plumeConfig in plumeConfigList)
+            {
+                string shaderName = plumeConfig.ShaderSettings.ShaderName;
+                if (!RequestedShaders.Contains(shaderName))
+                {
+                    RequestedShaders.Add(shaderName);
+                }
+            }
         }
 
         return assets;

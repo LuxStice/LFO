@@ -45,6 +45,7 @@
         <PropertyGroup>
             <ModId>@(Swinfo -> '%(mod_id)')</ModId>
             <Version>@(Swinfo -> '%(version)')</Version>
+            <Version Condition="$(Version.Contains('-'))">$(Version.Substring(0, $(Version.IndexOf('-'))))</Version>
             <Product>@(Swinfo -> '%(name)')</Product>
             <Authors>@(Swinfo -> '%(author)')</Authors>
             <Description>@(Swinfo -> '%(description)')</Description>
@@ -54,11 +55,5 @@
             <BepInExPluginName>$(Product)</BepInExPluginName>
             <BepInExPluginVersion>$(Version)</BepInExPluginVersion>
         </PropertyGroup>
-    </Target>
-
-    <Target Name="ReadPackageVersionFromJson" BeforeTargets="PostBuild">
-        <JsonPeek ContentPath="$(SolutionDir)/plugin_template/swinfo.json" Query="$.version">
-            <Output TaskParameter="Result" PropertyName="Version"/>
-        </JsonPeek>
     </Target>
 </Project>

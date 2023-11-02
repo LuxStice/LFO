@@ -3,7 +3,6 @@ using KSP.OAB;
 using KSP.Sim;
 using KSP.Sim.impl;
 using UnityEngine;
-using LFODeprecated = LuxsFlamesAndOrnaments.LFO;
 
 namespace LFO
 {
@@ -17,11 +16,6 @@ namespace LFO
             if (Shared.LFO.TryGetConfig(obj.Name, out Shared.Settings.LFOConfig config))
             {
                 config.InstantiatePlume(obj.Name, ref prefab);
-            }
-
-            if (LFODeprecated.TryGetConfig(obj.Name, out LuxsFlamesAndOrnaments.Settings.LFOConfig config2))
-            {
-                config2.InstantiatePlume(obj.Name, ref prefab);
             }
         }
 
@@ -41,12 +35,6 @@ namespace LFO
             if (Shared.LFO.TryGetConfig(model.Part.PartName, out Shared.Settings.LFOConfig config))
             {
                 config.InstantiatePlume(model.Part.PartName, ref instance);
-                return;
-            }
-
-            if (LFODeprecated.TryGetConfig(model.Part.PartName, out LuxsFlamesAndOrnaments.Settings.LFOConfig config2))
-            {
-                config2.InstantiatePlume(model.Part.PartName, ref instance);
             }
         }
     }

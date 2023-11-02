@@ -18,6 +18,5 @@
     <ItemGroup Label="Project references">
         <!-- Add references to any other projects in your solution that you want to use in your mod here -->
         <ProjectReference Include="$(SolutionDir)/src/LFO.Editor/LFO.Editor.csproj" Private="false"/>
-        <ProjectReference Include="$(SolutionDir)/src/LFO.Deprecated/LFO.Deprecated.csproj" Private="false"/>
     </ItemGroup>
 </Project>

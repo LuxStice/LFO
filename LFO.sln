@@ -4,8 +4,6 @@ Project("{EA8D99CE-3E61-46A9-98DF-924EA74B3A61}") = "LFO", "src/LFO/LFO.csproj",
 EndProject
 Project("{EA8D99CE-3E61-46A9-98DF-924EA74B3A61}") = "LFO.Editor", "src/LFO.Editor/LFO.Editor.csproj", "{E12F89C9-389B-4CDC-8EFF-8FC6E4C9D7FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LFO.Deprecated", "src/LFO.Deprecated/LFO.Deprecated.csproj", "{8DA08650-7CE6-4FF9-B165-9268EE150C51}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,13 +28,5 @@ Global
 		{E12F89C9-389B-4CDC-8EFF-8FC6E4C9D7FF}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
 		{E12F89C9-389B-4CDC-8EFF-8FC6E4C9D7FF}.DeployAndRun|Any CPU.ActiveCfg = DeployAndRun|Any CPU
 		{E12F89C9-389B-4CDC-8EFF-8FC6E4C9D7FF}.DeployAndRun|Any CPU.Build.0 = DeployAndRun|Any CPU
-		{8DA08650-7CE6-4FF9-B165-9268EE150C51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DA08650-7CE6-4FF9-B165-9268EE150C51}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DA08650-7CE6-4FF9-B165-9268EE150C51}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DA08650-7CE6-4FF9-B165-9268EE150C51}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DA08650-7CE6-4FF9-B165-9268EE150C51}.Deploy|Any CPU.ActiveCfg = Deploy|Any CPU
-		{8DA08650-7CE6-4FF9-B165-9268EE150C51}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
-		{8DA08650-7CE6-4FF9-B165-9268EE150C51}.DeployAndRun|Any CPU.ActiveCfg = DeployAndRun|Any CPU
-		{8DA08650-7CE6-4FF9-B165-9268EE150C51}.DeployAndRun|Any CPU.Build.0 = DeployAndRun|Any CPU
 	EndGlobalSection
 EndGlobal

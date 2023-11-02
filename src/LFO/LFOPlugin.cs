@@ -54,7 +54,7 @@ public class LFOPlugin : BaseSpaceWarpPlugin
     {
         base.OnPreInitialized();
         Path = PluginFolderPath;
-        Assembly.LoadFrom(System.IO.Path.Combine(Path, "LFO.Deprecated.dll"));
+
         Assembly.LoadFrom(System.IO.Path.Combine(Path, "LFO.Editor.dll"));
     }
 

@@ -57,7 +57,10 @@ public class LFOPlugin : BaseSpaceWarpPlugin
 
     private void Awake()
     {
-        Assembly.LoadFrom(System.IO.Path.Combine(Path, "LFO.Editor.dll"));
+        Assembly.LoadFrom(System.IO.Path.Combine(
+            System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!,
+            "LFO.Editor.dll"
+        ));
 
         Loading.AddAssetLoadingAction("plumes", "Loading LFO plumes", ImportPlumes, "json");
     }

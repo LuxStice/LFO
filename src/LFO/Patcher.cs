@@ -16,7 +16,7 @@ namespace LFO
     internal static class Patcher
     {
         private static readonly ILogger Logger = ServiceProvider.GetService<ILogger>();
-        private static readonly IAssetManager AssetManager = ServiceProvider.GetService<AssetManager>();
+        private static readonly IAssetManager AssetManager = ServiceProvider.GetService<IAssetManager>();
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(ObjectAssemblyPartTracker), nameof(ObjectAssemblyPartTracker.OnPartPrefabLoaded))]

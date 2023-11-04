@@ -1,12 +1,14 @@
-﻿using BepInEx;
+﻿using System.Reflection;
+using BepInEx;
 using HarmonyLib;
+using JetBrains.Annotations;
+using LFO.Shared;
+using LFO.Shared.Configs;
 using SpaceWarp;
+using SpaceWarp.API.Loading;
 using SpaceWarp.API.Mods;
 using UnityEngine;
-using System.Reflection;
-using LFO.Shared.Settings;
-using JetBrains.Annotations;
-using SpaceWarp.API.Loading;
+using ILogger = LFO.Shared.ILogger;
 using UnityObject = UnityEngine.Object;
 
 namespace LFO;
@@ -18,6 +20,8 @@ namespace LFO;
 [BepInDependency(SpaceWarpPlugin.ModGuid, SpaceWarpPlugin.ModVer)]
 public class LFOPlugin : BaseSpaceWarpPlugin
 {
+    #region API fields
+
     /// <summary>
     /// The GUID of the mod.
     /// </summary>
@@ -33,20 +37,28 @@ public class LFOPlugin : BaseSpaceWarpPlugin
     /// </summary>
     [PublicAPI] public const string ModVer = MyPluginInfo.PLUGIN_VERSION;
 
-    public static LFOPlugin Instance;
+    /// <summary>
+    /// The instance of the mod.
+    /// </summary>
+    [PublicAPI] public static LFOPlugin Instance;
 
-    public static void Log(object data) => Instance.Logger.LogInfo(data);
-    public static void LogDebug(object data) => Instance.Logger.LogDebug(data);
-    public static void LogWarning(object data) => Instance.Logger.LogWarning(data);
-    public static void LogError(object data) => Instance.Logger.LogError(data);
+    /// <summary>
+    /// The path to the mod folder.
+    /// </summary>
+    [PublicAPI] public static string Path;
 
-    public static string Path;
+    #endregion
+
+    private const string BundlePath = "assets/bundles/lfo-resources";
+    private const string PlumeConfigAssetPrefix = "lfo/plumes";
 
     public List<string> RequestedShaders = new();
     public List<string> RequestedMeshes = new(); // TODO: Add caching of meshes
 
     private void Awake()
     {
+        Assembly.LoadFrom(System.IO.Path.Combine(Path, "LFO.Editor.dll"));
+
         Loading.AddAssetLoadingAction("plumes", "Loading LFO plumes", ImportPlumes, "json");
     }
 
@@ -55,7 +67,8 @@ public class LFOPlugin : BaseSpaceWarpPlugin
         base.OnPreInitialized();
         Path = PluginFolderPath;
 
-        Assembly.LoadFrom(System.IO.Path.Combine(Path, "LFO.Editor.dll"));
+        ServiceProvider.RegisterService<ILogger>(new BepInExLogger(Logger));
+        ServiceProvider.RegisterService<IAssetManager>(new AssetManager($"{PluginFolderPath}/{BundlePath}"));
     }
 
     public override void OnInitialized()
@@ -65,11 +78,6 @@ public class LFOPlugin : BaseSpaceWarpPlugin
         Instance = this;
 
         Harmony.CreateAndPatchAll(typeof(LFOPlugin).Assembly);
-
-        SaveLoad.AddFlowActionToCampaignLoadAfter(
-            new LoadShadersFlowAction(RequestedShaders),
-            "Loading Colony Data"
-        );
     }
 
     private List<(string name, UnityObject asset)> ImportPlumes(string internalPath, string filename)
@@ -77,15 +85,15 @@ public class LFOPlugin : BaseSpaceWarpPlugin
         string jsonData = File.ReadAllText(filename);
         var assets = new List<(string name, UnityObject asset)>();
 
-        var config = LFOConfig.Deserialize(jsonData);
+        LFOConfig config = LFOConfig.Deserialize(jsonData);
 
         if (config.PlumeConfigs is null && config.PartName is null)
         {
             throw new Exception($"Plume config found at {filename} is not valid!");
         }
 
-        Shared.LFO.RegisterLFOConfig(config.PartName, config);
-        assets.Add(new ValueTuple<string, UnityObject>($"lfo/plumes/{internalPath}", new TextAsset(jsonData)));
+        ConfigManager.RegisterLFOConfig(config.PartName, config);
+        assets.Add(($"{PlumeConfigAssetPrefix}/{internalPath}", new TextAsset(jsonData)));
 
         foreach (List<PlumeConfig> plumeConfigList in config.PlumeConfigs!.Values)
         {

@@ -59,9 +59,9 @@ namespace LFO
             return null;
         }
 
-        public Mesh GetMesh(string meshPath)
+        public Mesh GetMesh(string meshName)
         {
-            if (GetAsset<GameObject>(meshPath) is { } fbxPrefab)
+            if (GetAsset<GameObject>(meshName) is { } fbxPrefab)
             {
                 return fbxPrefab.TryGetComponent(out SkinnedMeshRenderer skinnedRenderer)
                     ? skinnedRenderer.sharedMesh
@@ -69,9 +69,24 @@ namespace LFO
             }
 
             // obj's meshes are named as "meshName_#" with # being the meshID
-            return GetAsset<GameObject>(meshPath.Remove(meshPath.Length - 2))
+            return GetAsset<GameObject>(meshName.Remove(meshName.Length - 2))
                 ?.GetComponentInChildren<MeshFilter>()
                 ?.mesh;
+        }
+
+        public Shader GetShader(string shaderOrMaterialName)
+        {
+            if (GetAsset<Shader>(shaderOrMaterialName) is { } shader)
+            {
+                return shader;
+            }
+
+            if (GetAsset<Material>(shaderOrMaterialName) is { } material)
+            {
+                return material.shader;
+            }
+
+            return null;
         }
     }
 }

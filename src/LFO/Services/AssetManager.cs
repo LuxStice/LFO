@@ -41,7 +41,7 @@ namespace LFO
         {
             if (_cachedAssets.TryGetValue(name, out (Type, UnityObject) asset))
             {
-                if (asset.Item1 == typeof(T))
+                if (typeof(T).IsAssignableFrom(asset.Item1))
                 {
                     return (T) asset.Item2;
                 }

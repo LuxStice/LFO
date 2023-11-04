@@ -53,17 +53,17 @@ namespace LFO
             var effects = new List<ThrottleVFXManager.EngineEffect>();
             var deletedObjects = new List<string>();
 
-            foreach (KeyValuePair<string, List<PlumeConfig>> kvp in lfoConfig.PlumeConfigs)
+            foreach ((string key, List<PlumeConfig> configs) in lfoConfig.PlumeConfigs)
             {
-                Transform tParent = prefab.transform.FindChildRecursive(kvp.Key);
+                Transform tParent = prefab.transform.FindChildRecursive(key);
                 if (tParent == null)
                 {
-                    string sanitizedKey = $"[LFO] {kvp.Key} [vfx_exh]";
+                    string sanitizedKey = $"[LFO] {key} [vfx_exh]";
                     tParent = prefab.transform.FindChildRecursive(sanitizedKey);
                     if (tParent == null)
                     {
                         Logger.LogWarning(
-                            $"Couldn't find GameObject named {kvp.Key} to be set as parent. Trying to create under thrustTransform"
+                            $"Couldn't find GameObject named {key} to be set as parent. Trying to create under thrustTransform"
                         );
                         Transform tTransform = prefab.transform.FindChildRecursive("thrustTransform");
                         if (tTransform == null)
@@ -73,7 +73,7 @@ namespace LFO
                             );
                         }
 
-                        tParent = new GameObject(kvp.Key).transform;
+                        tParent = new GameObject(key).transform;
                         tParent.SetParent(prefab.transform.FindChildRecursive("thrustTransform"));
                         tParent.localRotation = Quaternion.Euler(270, 0, 0);
                         tParent.localPosition = Vector3.zero;
@@ -104,79 +104,90 @@ namespace LFO
                     // TODO: Add way to avoid certain cleanups (particles etc)
                 }
 
-                foreach (PlumeConfig config in kvp.Value)
+                foreach (PlumeConfig config in configs)
                 {
-                    try
-                    {
-                        var plume = new GameObject(
-                            "[LFO] " + config.TargetGameObject + " [vfx_exh]",
-                            typeof(MeshRenderer),
-                            typeof(MeshFilter),
-                            typeof(LFOThrottleData)
-                        );
-                        var throttleData = plume.GetComponent<LFOThrottleData>();
-                        throttleData.PartName = partName;
-                        throttleData.Material = config.GetMaterial();
-                        bool volumetric = false;
-
-                        if (throttleData.Material.shader.name.ToLower().Contains("volumetric"))
-                        {
-                            volumetric = true;
-                            plume.AddComponent<LFOVolume>();
-                        }
-
-                        var renderer = plume.GetComponent<MeshRenderer>();
-                        var filter = plume.GetComponent<MeshFilter>();
-
-                        if (volumetric)
-                        {
-                            var gameObject = GameObject.CreatePrimitive(
-                                config.MeshPath.ToLower() == "cylinder"
-                                    ? PrimitiveType.Cylinder
-                                    : PrimitiveType.Cube
-                            );
-
-                            filter.mesh = gameObject.GetComponent<MeshFilter>().sharedMesh;
-                            UnityObject.Destroy(gameObject);
-                        }
-                        else
-                        {
-                            if (AssetManager.GetMesh(config.MeshPath) is { } mesh)
-                            {
-                                filter.mesh = mesh;
-                            }
-                            else
-                            {
-                                Logger.LogWarning(
-                                    $"Couldn't find mesh at {config.MeshPath} for {config.TargetGameObject}"
-                                );
-                            }
-                        }
-
-                        ConfigManager.RegisterPlumeConfig(partName, plume.name, config);
-
-                        plume.transform.parent = prefab.transform.FindChildRecursive(tParent.name).transform;
-                        plume.layer = 1; //TransparentFX layer
-
-                        plume.transform.localPosition = config.Position;
-                        plume.transform.localRotation = Quaternion.Euler(config.Rotation);
-                        plume.transform.localScale = config.Scale;
-                        renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-                        renderer.enabled = false;
-
-                        effects.Add(new ThrottleVFXManager.EngineEffect
-                        {
-                            EffectReference = plume
-                        });
-                    }
-                    catch (Exception e)
-                    {
-                        Logger.LogWarning($"{config.TargetGameObject} was not created! \tException:\n{e}");
-                    }
+                    SetupConfig(prefab, config, partName, tParent, ref effects);
                 }
             }
 
             SetupVfxManager(vfxManager, effects);
+        }
+
+        private static void SetupConfig(
+            GameObject prefab,
+            PlumeConfig config,
+            string partName,
+            Transform tParent,
+            ref List<ThrottleVFXManager.EngineEffect> effects
+        )
+        {
+            try
+            {
+                var plume = new GameObject(
+                    "[LFO] " + config.TargetGameObject + " [vfx_exh]",
+                    typeof(MeshRenderer),
+                    typeof(MeshFilter),
+                    typeof(LFOThrottleData)
+                );
+                var throttleData = plume.GetComponent<LFOThrottleData>();
+                throttleData.PartName = partName;
+                throttleData.Material = config.GetMaterial();
+                bool volumetric = false;
+
+                if (throttleData.Material.shader.name.ToLower().Contains("volumetric"))
+                {
+                    volumetric = true;
+                    plume.AddComponent<LFOVolume>();
+                }
+
+                var renderer = plume.GetComponent<MeshRenderer>();
+                var filter = plume.GetComponent<MeshFilter>();
+
+                if (volumetric)
+                {
+                    var gameObject = GameObject.CreatePrimitive(
+                        config.MeshPath.ToLower() == "cylinder"
+                            ? PrimitiveType.Cylinder
+                            : PrimitiveType.Cube
+                    );
+
+                    filter.mesh = gameObject.GetComponent<MeshFilter>().sharedMesh;
+                    UnityObject.Destroy(gameObject);
+                }
+                else
+                {
+                    if (AssetManager.GetMesh(config.MeshPath) is { } mesh)
+                    {
+                        filter.mesh = mesh;
+                    }
+                    else
+                    {
+                        Logger.LogWarning(
+                            $"Couldn't find mesh at {config.MeshPath} for {config.TargetGameObject}"
+                        );
+                    }
+                }
+
+                ConfigManager.RegisterPlumeConfig(partName, plume.name, config);
+
+                plume.transform.parent = prefab.transform.FindChildRecursive(tParent.name).transform;
+                plume.layer = 1; //TransparentFX layer
+
+                plume.transform.localPosition = config.Position;
+                plume.transform.localRotation = Quaternion.Euler(config.Rotation);
+                plume.transform.localScale = config.Scale;
+                renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                renderer.enabled = false;
+
+                effects.Add(new ThrottleVFXManager.EngineEffect
+                {
+                    EffectReference = plume
+                });
+            }
+            catch (Exception e)
+            {
+                Logger.LogError($"{config.TargetGameObject} was not created! \tException:\n{e}");
+            }
         }
 
         private static void SetupVfxManager(

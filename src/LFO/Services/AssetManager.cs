@@ -13,7 +13,7 @@ namespace LFO
 
         private static readonly Dictionary<string, string> RenamedAssets = new()
         {
-            {"vfx_exh_bell_j_01", "bell_j_1"},
+            {"vfx_exh_bell_j_01_0", "bell_j_1"},
             {"vfx_exh_bell_p2_1_0", "bell_p2_1"},
             {"vfx_exh_shock_p1_s1_0", "shock_1_pt1"},
             {"vfx_exh_shock_p2_s1_0", "shock_1_pt2"},
@@ -53,9 +53,8 @@ namespace LFO
                 return false;
             }
 
-            asset = (T) foundAsset.Item2;
+            asset = (T)foundAsset.Item2;
             return true;
-
         }
 
         public T GetAsset<T>(string name) where T : UnityObject
@@ -66,7 +65,7 @@ namespace LFO
             {
                 if (typeof(T).IsAssignableFrom(asset.Item1))
                 {
-                    return (T) asset.Item2;
+                    return (T)asset.Item2;
                 }
 
                 _logger.LogError($"Asset {name} is not of type {typeof(T)}");

@@ -14,7 +14,7 @@ namespace LFO
         private static readonly Dictionary<string, string> RenamedAssets = new()
         {
             {"vfx_exh_bell_j_01", "bell_j_1"},
-            {"vfx_exh_bell_p2_1", "bell_p2_1"},
+            {"vfx_exh_bell_p2_1_0", "bell_p2_1"},
             {"vfx_exh_shock_p1_s1_0", "shock_1_pt1"},
             {"vfx_exh_shock_p2_s1_0", "shock_1_pt2"},
             {"vfx_exh_shock_p3_s1_0", "shock_1_pt3"},
@@ -32,13 +32,36 @@ namespace LFO
             {
                 UnityObject asset = bundle.LoadAsset(path);
                 Type assetType = asset.GetType();
-                _cachedAssets[asset.name] = (assetType, asset);
+                _cachedAssets[asset.name.ToLowerInvariant()] = (assetType, asset);
                 _logger.LogDebug($"Loaded {assetType.Name} {asset.name} from {path}");
             }
         }
 
+        public bool TryGetAsset<T>(string name, out T asset) where T : UnityObject
+        {
+            asset = default;
+
+            name = name.ToLowerInvariant();
+
+            if (!_cachedAssets.TryGetValue(name, out (Type, UnityObject) foundAsset))
+            {
+                return RenamedAssets.TryGetValue(name, out string newName) && TryGetAsset(newName, out asset);
+            }
+
+            if (!typeof(T).IsAssignableFrom(foundAsset.Item1))
+            {
+                return false;
+            }
+
+            asset = (T) foundAsset.Item2;
+            return true;
+
+        }
+
         public T GetAsset<T>(string name) where T : UnityObject
         {
+            name = name.ToLowerInvariant();
+
             if (_cachedAssets.TryGetValue(name, out (Type, UnityObject) asset))
             {
                 if (typeof(T).IsAssignableFrom(asset.Item1))
@@ -76,12 +99,12 @@ namespace LFO
 
         public Shader GetShader(string shaderOrMaterialName)
         {
-            if (GetAsset<Shader>(shaderOrMaterialName) is { } shader)
+            if (TryGetAsset(shaderOrMaterialName, out Shader shader))
             {
                 return shader;
             }
 
-            if (GetAsset<Material>(shaderOrMaterialName) is { } material)
+            if (TryGetAsset(shaderOrMaterialName, out Material material))
             {
                 return material.shader;
             }

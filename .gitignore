@@ -7,6 +7,9 @@
 _UpgradeReport_Files/
 ./[Pp]ackages/
 
+# Old stuff that doesn't belong on the GH repo
+Archive/
+
 # Mod template folders
 [Bb]uild/
 [Dd]ist/

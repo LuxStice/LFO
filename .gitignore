@@ -30,6 +30,9 @@ plugin_template/assets/bundles/*
 !.vscode/extensions.json
 *.code-workspace
 
+# Blender Junk
+*.blend1
+
 # Local History for Visual Studio Code
 .history/
 

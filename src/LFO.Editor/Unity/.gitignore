@@ -81,3 +81,11 @@ crashlytics-build.properties
 
 # Imported KSP2_x64
 /[Pp]ackages/[Kk][Ss][Pp]2_[Xx]64
+
+# Exported plumes in plugin_template
+/[Aa]ssets/plugin_template
+/[Aa]ssets/plugin_template.meta
+
+# ThunderKit settings
+/[Aa]ssets/ThunderKitSettings
+/[Aa]ssets/ThunderKitSettings.meta

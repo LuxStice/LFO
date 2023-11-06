@@ -5,21 +5,11 @@ using UnityObject = UnityEngine.Object;
 
 namespace LFO
 {
-    public class AssetManager : IAssetManager
+    public class AssetManager : BaseAssetManager
     {
         private readonly Dictionary<string, (Type, UnityObject)> _cachedAssets = new();
 
         private readonly ILogger _logger;
-
-        private static readonly Dictionary<string, string> RenamedAssets = new()
-        {
-            {"vfx_exh_bell_j_01_0", "bell_j_1"},
-            {"vfx_exh_bell_p2_1_0", "bell_p2_1"},
-            {"vfx_exh_shock_p1_s1_0", "shock_1_pt1"},
-            {"vfx_exh_shock_p2_s1_0", "shock_1_pt2"},
-            {"vfx_exh_shock_p3_s1_0", "shock_1_pt3"},
-            {"vfx_exh_shock_p4_s1_0", "shock_1_pt4"},
-        };
 
         public AssetManager(string bundlePath)
         {
@@ -37,27 +27,7 @@ namespace LFO
             }
         }
 
-        public bool TryGetAsset<T>(string name, out T asset) where T : UnityObject
-        {
-            asset = default;
-
-            name = name.ToLowerInvariant();
-
-            if (!_cachedAssets.TryGetValue(name, out (Type, UnityObject) foundAsset))
-            {
-                return RenamedAssets.TryGetValue(name, out string newName) && TryGetAsset(newName, out asset);
-            }
-
-            if (!typeof(T).IsAssignableFrom(foundAsset.Item1))
-            {
-                return false;
-            }
-
-            asset = (T)foundAsset.Item2;
-            return true;
-        }
-
-        public T GetAsset<T>(string name) where T : UnityObject
+        public override T GetAsset<T>(string name)
         {
             name = name.ToLowerInvariant();
 
@@ -72,7 +42,7 @@ namespace LFO
                 return null;
             }
 
-            if (RenamedAssets.TryGetValue(name, out string newName))
+            if (GetRenamedAssetName(name) is { } newName)
             {
                 return GetAsset<T>(newName);
             }
@@ -81,34 +51,24 @@ namespace LFO
             return null;
         }
 
-        public Mesh GetMesh(string meshName)
+        public override bool TryGetAsset<T>(string name, out T asset)
         {
-            if (GetAsset<GameObject>(meshName) is { } fbxPrefab)
+            asset = default;
+
+            name = name.ToLowerInvariant();
+
+            if (!_cachedAssets.TryGetValue(name, out (Type, UnityObject) foundAsset))
             {
-                return fbxPrefab.TryGetComponent(out SkinnedMeshRenderer skinnedRenderer)
-                    ? skinnedRenderer.sharedMesh
-                    : fbxPrefab.GetComponent<MeshFilter>().mesh;
+                return GetRenamedAssetName(name) is { } newName && TryGetAsset(newName, out asset);
             }
 
-            // obj's meshes are named as "meshName_#" with # being the meshID
-            return GetAsset<GameObject>(meshName.Remove(meshName.Length - 2))
-                ?.GetComponentInChildren<MeshFilter>()
-                ?.mesh;
-        }
-
-        public Shader GetShader(string shaderOrMaterialName)
-        {
-            if (TryGetAsset(shaderOrMaterialName, out Shader shader))
+            if (!typeof(T).IsAssignableFrom(foundAsset.Item1))
             {
-                return shader;
+                return false;
             }
 
-            if (TryGetAsset(shaderOrMaterialName, out Material material))
-            {
-                return material.shader;
-            }
-
-            return null;
+            asset = (T)foundAsset.Item2;
+            return true;
         }
     }
 }

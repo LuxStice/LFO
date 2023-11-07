@@ -123,111 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!21 &211835969
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Mach 1 Scatter Plume Material
-  m_Shader: {fileID: 4800000, guid: a3908d45f2c04734d9b969ccf5b99fcb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _NoiseTex:
-        m_Texture: {fileID: 2800000, guid: d5b44fb62d59f9a43b58b957dd067fe7, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _Brightness: 1.75
-    - _Falloff: 1
-    - _FalloffStart: 3
-    - _FalloffStartPosition: 0
-    - _Fresnel: 3
-    - _FresnelInverted: 0
-    - _LenghtwiseBrightness: 1
-    - _LenghtwisePosition: 0
-    - _LinearExpansion: 0
-    - _Noise: 1
-    - _NoiseContrast: 1
-    - _NoiseFresnel: 0.2
-    - _Opacity: 1
-    - _QuadraticExpansion: 0
-    - _Seed: 0
-    - _StartFadeIn: 1.5
-    - _TintFalloff: 2
-    m_Colors:
-    - _EndTint: {r: 0.062745094, g: 0.5185024, b: 1, a: 1}
-    - _Speed: {r: 0, g: 4, b: 0, a: 0}
-    - _StartTint: {r: 1, g: 0.086274505, b: 0.19422267, a: 1}
-    - _Tilling: {r: 1, g: 1, b: 0, a: 0}
-  m_BuildTextureStacks: []
---- !u!21 &369598346
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Mach 2 Plume Material
-  m_Shader: {fileID: 4800000, guid: a3908d45f2c04734d9b969ccf5b99fcb, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _NoiseTex:
-        m_Texture: {fileID: 2800000, guid: 602ce1cebe7d89947b300600c3c0d78e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _Brightness: 3
-    - _Falloff: 1
-    - _FalloffStart: 0
-    - _FalloffStartPosition: 0
-    - _Fresnel: 2
-    - _FresnelInverted: 0
-    - _LenghtwiseBrightness: 1
-    - _LenghtwisePosition: 0
-    - _LinearExpansion: 0
-    - _Noise: 1
-    - _NoiseContrast: 1
-    - _NoiseFresnel: 0.1
-    - _Opacity: 1
-    - _QuadraticExpansion: 0
-    - _Seed: 0
-    - _StartFadeIn: 1
-    - _TintFalloff: 2
-    m_Colors:
-    - _EndTint: {r: 0.1512549, g: 0.24981636, b: 0.9716981, a: 1}
-    - _Speed: {r: 0, g: 5, b: 0, a: 0}
-    - _StartTint: {r: 0.19339621, g: 0.40875113, b: 1, a: 1}
-    - _Tilling: {r: 1, g: 1, b: 0, a: 0}
-  m_BuildTextureStacks: []
---- !u!21 &544156685
+--- !u!21 &599209722
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -279,7 +175,7 @@ Material:
     - _StartTint: {r: 0.19339621, g: 0.40875113, b: 1, a: 1}
     - _Tilling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &639160922
+--- !u!21 &689942631
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -425,6 +321,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!21 &843351259
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Mach 2 Plume Material
+  m_Shader: {fileID: 4800000, guid: a3908d45f2c04734d9b969ccf5b99fcb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 602ce1cebe7d89947b300600c3c0d78e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Brightness: 3
+    - _Falloff: 1
+    - _FalloffStart: 0
+    - _FalloffStartPosition: 0
+    - _Fresnel: 2
+    - _FresnelInverted: 0
+    - _LenghtwiseBrightness: 1
+    - _LenghtwisePosition: 0
+    - _LinearExpansion: 0
+    - _Noise: 1
+    - _NoiseContrast: 1
+    - _NoiseFresnel: 0.1
+    - _Opacity: 1
+    - _QuadraticExpansion: 0
+    - _Seed: 0
+    - _StartFadeIn: 1
+    - _TintFalloff: 2
+    m_Colors:
+    - _EndTint: {r: 0.1512549, g: 0.24981636, b: 0.9716981, a: 1}
+    - _Speed: {r: 0, g: 5, b: 0, a: 0}
+    - _StartTint: {r: 0.19339621, g: 0.40875113, b: 1, a: 1}
+    - _Tilling: {r: 1, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,7 +465,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1263392844
+--- !u!21 &1082216210
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -569,7 +517,7 @@ Material:
     - _StartTint: {r: 0.1462264, g: 0.35666105, b: 1, a: 1}
     - _Tilling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &1433798300
+--- !u!21 &1122539550
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -621,7 +569,7 @@ Material:
     - _StartTint: {r: 0.19339621, g: 0.40875113, b: 1, a: 1}
     - _Tilling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &1629287776
+--- !u!21 &1458928005
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -664,7 +612,7 @@ Material:
     - _NoiseFresnel: 0.1
     - _Opacity: 1
     - _QuadraticExpansion: 0.2
-    - _Seed: 0
+    - _Seed: -0.1
     - _StartFadeIn: 1
     - _TintFalloff: 2
     m_Colors:
@@ -673,7 +621,59 @@ Material:
     - _StartTint: {r: 0.06400001, g: 0.20977022, b: 1, a: 1}
     - _Tilling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &1746818151
+--- !u!21 &1483891980
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Mach 1 Scatter Plume Material
+  m_Shader: {fileID: 4800000, guid: a3908d45f2c04734d9b969ccf5b99fcb, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: d5b44fb62d59f9a43b58b957dd067fe7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Brightness: 1.75
+    - _Falloff: 1
+    - _FalloffStart: 3
+    - _FalloffStartPosition: 0
+    - _Fresnel: 3
+    - _FresnelInverted: 0
+    - _LenghtwiseBrightness: 1
+    - _LenghtwisePosition: 0
+    - _LinearExpansion: 0
+    - _Noise: 1
+    - _NoiseContrast: 1
+    - _NoiseFresnel: 0.2
+    - _Opacity: 1
+    - _QuadraticExpansion: 0
+    - _Seed: 0
+    - _StartFadeIn: 1.5
+    - _TintFalloff: 2
+    m_Colors:
+    - _EndTint: {r: 0.062745094, g: 0.5185024, b: 1, a: 1}
+    - _Speed: {r: 0, g: 4, b: 0, a: 0}
+    - _StartTint: {r: 1, g: 0.086274505, b: 0.19422267, a: 1}
+    - _Tilling: {r: 1, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!21 &1644239780
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -725,7 +725,7 @@ Material:
     - _StartTint: {r: 1, g: 0.17699999, b: 0.24372958, a: 1}
     - _Tilling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!21 &1995245839
+--- !u!21 &1720491237
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -846,7 +846,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 211835969}
+  - {fileID: 1483891980}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -917,7 +917,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 544156685}
+  - {fileID: 599209722}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -951,20 +951,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f15abe340f43bcb3e7dc795015cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seed: 0.5683748
+  Seed: 0.48765942
   Renderer: {fileID: 2607031536687596451}
   Config:
     MeshPath: Flames
     TargetGameObject: Mach 2 Scatter
     ShaderSettings:
       ShaderName: LFO/Additive
-    Position: {x: 0, y: 0, z: 0}
-    Scale: {x: 0.1, y: 0.1, z: 0.2}
+    Position: {x: -0.000000027008355, y: 2.7755576e-17, z: -0.000000063329935}
+    Scale: {x: 0.07, y: 0.07, z: 0.07}
     Rotation: {x: 0, y: 0, z: 0}
     FloatParams:
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _Opacity
+      ParamName:
+        Value: _Opacity
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -1020,7 +1021,8 @@ MonoBehaviour:
       Value: 0
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _LenghtwisePosition
+      ParamName:
+        Value: _LenghtwisePosition
       UseAtmoCurve: 1
       AtmoCurveType: 2
       AtmoMultiplierCurve:
@@ -1076,7 +1078,8 @@ MonoBehaviour:
       Value: 0
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _QuadraticExpansion
+      ParamName:
+        Value: _QuadraticExpansion
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -1252,20 +1255,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f15abe340f43bcb3e7dc795015cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seed: 0.5521095
+  Seed: 0.71871644
   Renderer: {fileID: 8026389341980628436}
   Config:
-    MeshPath: vfx_exh_bell_p2_1_0
+    MeshPath: bell_p2_1
     TargetGameObject: Bell
     ShaderSettings:
       ShaderName: LFO/Additive
-    Position: {x: 0, y: 0, z: 1.019}
-    Scale: {x: 0.0055, y: 0.0055, z: 0.0066}
-    Rotation: {x: 0, y: 0, z: 0}
+    Position: {x: 0, y: 0.31, z: 0}
+    Scale: {x: 0.002, y: 0.002, z: 0.002}
+    Rotation: {x: 270, y: 0, z: 0}
     FloatParams:
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _Opacity
+      ParamName:
+        Value: _Opacity
       UseAtmoCurve: 0
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -1443,10 +1447,6 @@ MonoBehaviour:
       CanSuggestOrientation: 0
       PickUpPointOffset: {x: 0, y: 0, z: 0}
       PickupRotationPointOffset: {x: 0, y: 0, z: 0}
-      _title: 
-      _subtitle: 
-      _description: 
-      _manufacturer: 
     legacyModules: 
 --- !u!33 &2425207141519771401
 MeshFilter:
@@ -1476,7 +1476,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1995245839}
+  - {fileID: 1720491237}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1521,20 +1521,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f15abe340f43bcb3e7dc795015cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seed: 0.052432906
+  Seed: 0.5002076
   Renderer: {fileID: 3084735196333016183}
   Config:
     MeshPath: Flames
     TargetGameObject: Screen Scatter
     ShaderSettings:
       ShaderName: LFO/Additive
-    Position: {x: 0, y: 0, z: 0}
+    Position: {x: -0.000000027008355, y: 2.7755576e-17, z: -0.000000063329935}
     Scale: {x: 1, y: 1, z: 1}
     Rotation: {x: 0, y: 0, z: 0}
     FloatParams:
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _Opacity
+      ParamName:
+        Value: _Opacity
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -1599,7 +1600,8 @@ MonoBehaviour:
       Value: 1
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _LinearExpansion
+      ParamName:
+        Value: _LinearExpansion
       UseAtmoCurve: 0
       AtmoCurveType: 2
       AtmoMultiplierCurve:
@@ -1673,7 +1675,8 @@ MonoBehaviour:
       Value: 0.688
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _QuadraticExpansion
+      ParamName:
+        Value: _QuadraticExpansion
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -1775,7 +1778,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1263392844}
+  - {fileID: 1082216210}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1820,20 +1823,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f15abe340f43bcb3e7dc795015cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seed: 0.689834
+  Seed: 0.69021213
   Renderer: {fileID: 6590924893161829644}
   Config:
     MeshPath: Flames
     TargetGameObject: Mach 3 Scatter
     ShaderSettings:
       ShaderName: LFO/Additive
-    Position: {x: 0, y: 0, z: 0}
-    Scale: {x: 0.1, y: 0.1, z: 0.2}
+    Position: {x: -0.000000027008355, y: 2.7755576e-17, z: -0.000000063329935}
+    Scale: {x: 0.07, y: 0.07, z: 0.07}
     Rotation: {x: 0, y: 0, z: 0}
     FloatParams:
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _Opacity
+      ParamName:
+        Value: _Opacity
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -1889,7 +1893,8 @@ MonoBehaviour:
       Value: 0
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _LenghtwisePosition
+      ParamName:
+        Value: _LenghtwisePosition
       UseAtmoCurve: 1
       AtmoCurveType: 2
       AtmoMultiplierCurve:
@@ -1945,7 +1950,8 @@ MonoBehaviour:
       Value: 0
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _QuadraticExpansion
+      ParamName:
+        Value: _QuadraticExpansion
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -2075,20 +2081,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f15abe340f43bcb3e7dc795015cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seed: 0.87733716
+  Seed: 0.076942906
   Renderer: {fileID: 4657937233465948200}
   Config:
     MeshPath: Flames
     TargetGameObject: Screen
     ShaderSettings:
       ShaderName: LFO/Additive
-    Position: {x: 0, y: 0, z: 0}
+    Position: {x: -0.000000027008355, y: 2.7755576e-17, z: -0.000000063329935}
     Scale: {x: 1, y: 1, z: 1}
-    Rotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 270.01978, y: -0.00000042688688, z: 0}
     FloatParams:
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _Opacity
+      ParamName:
+        Value: _Opacity
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -2153,7 +2160,8 @@ MonoBehaviour:
       Value: 1
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _LinearExpansion
+      ParamName:
+        Value: _LinearExpansion
       UseAtmoCurve: 1
       AtmoCurveType: 2
       AtmoMultiplierCurve:
@@ -2227,7 +2235,8 @@ MonoBehaviour:
       Value: -0.1
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _QuadraticExpansion
+      ParamName:
+        Value: _QuadraticExpansion
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -2321,7 +2330,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 369598346}
+  - {fileID: 843351259}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2355,20 +2364,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f15abe340f43bcb3e7dc795015cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seed: 0.5859335
+  Seed: 0.5800219
   Renderer: {fileID: 5168075856509518556}
   Config:
-    MeshPath: vfx_exh_shock_p2_s1_0
+    MeshPath: shock_1_pt2
     TargetGameObject: Mach 1
     ShaderSettings:
       ShaderName: LFO/Additive
-    Position: {x: 0, y: 0, z: 0}
-    Scale: {x: 10, y: 10, z: 7.5}
-    Rotation: {x: 0, y: 0, z: 0}
+    Position: {x: 0, y: -0.83, z: 0.057}
+    Scale: {x: 10, y: 10, z: 10}
+    Rotation: {x: 270, y: 0, z: 0}
     FloatParams:
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _Opacity
+      ParamName:
+        Value: _Opacity
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -2424,7 +2434,8 @@ MonoBehaviour:
       Value: 0
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _LenghtwisePosition
+      ParamName:
+        Value: _LenghtwisePosition
       UseAtmoCurve: 1
       AtmoCurveType: 2
       AtmoMultiplierCurve:
@@ -2527,20 +2538,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f15abe340f43bcb3e7dc795015cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seed: 0.9184376
+  Seed: 0.042072788
   Renderer: {fileID: 277991251585846306}
   Config:
-    MeshPath: vfx_exh_shock_p2_s1_0
+    MeshPath: shock_1_pt2
     TargetGameObject: Mach 3
     ShaderSettings:
       ShaderName: LFO/Additive
-    Position: {x: 0, y: 0, z: -4.03}
-    Scale: {x: 10, y: 10, z: 7.5}
-    Rotation: {x: 0, y: 0, z: 0}
+    Position: {x: 0, y: -6.92, z: 0.056999207}
+    Scale: {x: 10, y: 10, z: 10}
+    Rotation: {x: 270, y: 0, z: 0}
     FloatParams:
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _Opacity
+      ParamName:
+        Value: _Opacity
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -2596,7 +2608,8 @@ MonoBehaviour:
       Value: 0
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _LenghtwisePosition
+      ParamName:
+        Value: _LenghtwisePosition
       UseAtmoCurve: 1
       AtmoCurveType: 2
       AtmoMultiplierCurve:
@@ -2701,20 +2714,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f15abe340f43bcb3e7dc795015cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seed: 0.18882853
+  Seed: 0.563563
   Renderer: {fileID: 3265371647207708226}
   Config:
-    MeshPath: vfx_exh_shock_p2_s1_0
+    MeshPath: shock_1_pt2
     TargetGameObject: Mach 2
     ShaderSettings:
       ShaderName: LFO/Additive
-    Position: {x: 0, y: 0, z: -1.94}
-    Scale: {x: 10, y: 10, z: 7.5}
-    Rotation: {x: 0, y: 0, z: 0}
+    Position: {x: 0, y: -3.93, z: 0.056999207}
+    Scale: {x: 10, y: 10, z: 10}
+    Rotation: {x: 270, y: 0, z: 0}
     FloatParams:
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _Opacity
+      ParamName:
+        Value: _Opacity
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -2770,7 +2784,8 @@ MonoBehaviour:
       Value: 0
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _LenghtwisePosition
+      ParamName:
+        Value: _LenghtwisePosition
       UseAtmoCurve: 1
       AtmoCurveType: 2
       AtmoMultiplierCurve:
@@ -2846,7 +2861,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1629287776}
+  - {fileID: 1458928005}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2891,20 +2906,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f15abe340f43bcb3e7dc795015cac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Seed: 0.34864536
+  Seed: 0.41746488
   Renderer: {fileID: 69426811229029398}
   Config:
     MeshPath: Flames
     TargetGameObject: Mach 1 Scatter
     ShaderSettings:
       ShaderName: LFO/Additive
-    Position: {x: 0, y: 0, z: 0}
-    Scale: {x: 0.1, y: 0.1, z: 0.2}
+    Position: {x: -0.000000027008355, y: 2.7755576e-17, z: -0.000000063329935}
+    Scale: {x: 0.07, y: 0.07, z: 0.07}
     Rotation: {x: 0, y: 0, z: 0}
     FloatParams:
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _Opacity
+      ParamName:
+        Value: _Opacity
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -2960,7 +2976,8 @@ MonoBehaviour:
       Value: 0
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _LenghtwisePosition
+      ParamName:
+        Value: _LenghtwisePosition
       UseAtmoCurve: 1
       AtmoCurveType: 2
       AtmoMultiplierCurve:
@@ -3016,7 +3033,8 @@ MonoBehaviour:
       Value: 0
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _QuadraticExpansion
+      ParamName:
+        Value: _QuadraticExpansion
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -3090,7 +3108,8 @@ MonoBehaviour:
       Value: 0
     - ParamHash: 362
       IsDirty: 0
-      ParamName: _LinearExpansion
+      ParamName:
+        Value: _LinearExpansion
       UseAtmoCurve: 1
       AtmoCurveType: 0
       AtmoMultiplierCurve:
@@ -3184,7 +3203,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1433798300}
+  - {fileID: 1122539550}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3361,7 +3380,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1746818151}
+  - {fileID: 1644239780}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3472,7 +3491,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 639160922}
+  - {fileID: 689942631}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

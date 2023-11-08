@@ -49,11 +49,7 @@ public class LFOPlugin : BaseSpaceWarpPlugin
 
     #endregion
 
-    private const string BundlePath = "assets/bundles/lfo-resources";
     private const string PlumeConfigAssetPrefix = "lfo/plumes";
-
-    public List<string> RequestedShaders = new();
-    public List<string> RequestedMeshes = new(); // TODO: Add caching of meshes
 
     private void Awake()
     {
@@ -62,16 +58,24 @@ public class LFOPlugin : BaseSpaceWarpPlugin
             "LFO.Editor.dll"
         ));
 
-        Loading.AddAssetLoadingAction("plumes", "Loading LFO plumes", ImportPlumes, "json");
+        Loading.AddAssetLoadingAction(
+            "plumes",
+            "Loading LFO plumes",
+            ImportPlumes,
+            "json"
+        );
+
+        Loading.AddAddressablesLoadingAction<TextAsset>(
+            "Loading FLO plumes from addressables",
+            Constants.ConfigLabel,
+            ImportAddressablePlumes
+        );
     }
 
     public override void OnPreInitialized()
     {
         base.OnPreInitialized();
         Path = PluginFolderPath;
-
-        ServiceProvider.RegisterService<ILogger>(new BepInExLogger(Logger));
-        ServiceProvider.RegisterService<IAssetManager>(new AssetManager($"{PluginFolderPath}/{BundlePath}"));
     }
 
     public override void OnInitialized()
@@ -80,36 +84,38 @@ public class LFOPlugin : BaseSpaceWarpPlugin
 
         Instance = this;
 
+        ServiceProvider.RegisterService<ILogger>(new BepInExLogger(Logger));
+        ServiceProvider.RegisterService<IAssetManager>(new RuntimeAssetManager(Constants.AssetLabel));
+
         Harmony.CreateAndPatchAll(typeof(LFOPlugin).Assembly);
     }
 
-    private List<(string name, UnityObject asset)> ImportPlumes(string internalPath, string filename)
+    private static List<(string name, UnityObject asset)> ImportPlumes(string internalPath, string filename)
     {
         string jsonData = File.ReadAllText(filename);
-        var assets = new List<(string name, UnityObject asset)>();
 
-        LFOConfig config = LFOConfig.Deserialize(jsonData);
+        RegisterPlumeConfig(filename, jsonData);
+
+        return new List<(string name, UnityObject asset)>
+        {
+            ($"{PlumeConfigAssetPrefix}/{internalPath}", new TextAsset(jsonData))
+        };
+    }
+
+    private static void ImportAddressablePlumes(TextAsset asset)
+    {
+        RegisterPlumeConfig(asset.name, asset.text);
+    }
+
+    private static void RegisterPlumeConfig(string filename, string json)
+    {
+        LFOConfig config = LFOConfig.Deserialize(json);
 
         if (config.PlumeConfigs is null && config.PartName is null)
         {
-            throw new Exception($"Plume config found at {filename} is not valid!");
+            throw new Exception($"Plume config {filename} is not valid!");
         }
 
         ConfigManager.RegisterLFOConfig(config.PartName, config);
-        assets.Add(($"{PlumeConfigAssetPrefix}/{internalPath}", new TextAsset(jsonData)));
-
-        foreach (List<PlumeConfig> plumeConfigList in config.PlumeConfigs!.Values)
-        {
-            foreach (PlumeConfig plumeConfig in plumeConfigList)
-            {
-                string shaderName = plumeConfig.ShaderSettings.ShaderName;
-                if (!RequestedShaders.Contains(shaderName))
-                {
-                    RequestedShaders.Add(shaderName);
-                }
-            }
-        }
-
-        return assets;
     }
 }

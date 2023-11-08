@@ -8,7 +8,6 @@ using LFO.Shared.Components;
 using LFO.Shared.Configs;
 using UnityEngine;
 using ILogger = LFO.Shared.ILogger;
-using UnityObject = UnityEngine.Object;
 
 namespace LFO
 {
@@ -51,58 +50,14 @@ namespace LFO
         {
             var vfxManager = prefab.GetComponent<ThrottleVFXManager>();
             var effects = new List<ThrottleVFXManager.EngineEffect>();
-            var deletedObjects = new List<string>();
 
             foreach ((string key, List<PlumeConfig> configs) in lfoConfig.PlumeConfigs)
             {
-                Transform tParent = prefab.transform.FindChildRecursive(key);
-                if (tParent == null)
-                {
-                    string sanitizedKey = $"[LFO] {key} [vfx_exh]";
-                    tParent = prefab.transform.FindChildRecursive(sanitizedKey);
-                    if (tParent == null)
-                    {
-                        Logger.LogWarning(
-                            $"Couldn't find GameObject named {key} to be set as parent. Trying to create under thrustTransform"
-                        );
-                        Transform tTransform = prefab.transform.FindChildRecursive("thrustTransform");
-                        if (tTransform == null)
-                        {
-                            throw new NullReferenceException(
-                                "[LFO] Couldn't find GameObject named thrustTransform to enforce plume creation"
-                            );
-                        }
+                Transform tParent = prefab.transform.FindChildRecursive(key)
+                                    ?? prefab.transform.FindChildRecursive($"[LFO] {key} [vfx_exh]")
+                                    ?? CreateThrustTransformChild(key, prefab);
 
-                        tParent = new GameObject(key).transform;
-                        tParent.SetParent(prefab.transform.FindChildRecursive("thrustTransform"));
-                        tParent.localRotation = Quaternion.Euler(270, 0, 0);
-                        tParent.localPosition = Vector3.zero;
-                        tParent.localScale = Vector3.one;
-                    }
-                }
-
-                if (tParent == null)
-                {
-                    continue;
-                }
-
-                int childCount = tParent.childCount;
-                for (int i = childCount - 1; i >= 0; i--)
-                {
-                    deletedObjects.Add(
-                        prefab.transform
-                            .FindChildRecursive(tParent.name)
-                            .GetChild(i)
-                            .gameObject
-                            .name
-                    );
-                    prefab.transform
-                        .FindChildRecursive(tParent.name)
-                        .GetChild(i)
-                        .gameObject
-                        .DestroyGameObjectImmediate(); // Cleanup of every other plume (could be more efficient)
-                    // TODO: Add way to avoid certain cleanups (particles etc)
-                }
+                CleanupChildNodes(prefab, tParent);
 
                 foreach (PlumeConfig config in configs)
                 {
@@ -111,6 +66,43 @@ namespace LFO
             }
 
             SetupVfxManager(vfxManager, effects);
+        }
+
+        private static Transform CreateThrustTransformChild(string key, GameObject prefab)
+        {
+            Logger.LogWarning(
+                $"Couldn't find GameObject named {key} to be set as parent. Trying to create under thrustTransform"
+            );
+            Transform tTransform = prefab.transform.FindChildRecursive("thrustTransform");
+            if (tTransform == null)
+            {
+                throw new NullReferenceException(
+                    "[LFO] Couldn't find GameObject named thrustTransform to enforce plume creation"
+                );
+            }
+
+            Transform tParent = new GameObject(key).transform;
+            tParent.SetParent(tTransform);
+            tParent.localRotation = Quaternion.Euler(270, 0, 0);
+            tParent.localPosition = Vector3.zero;
+            tParent.localScale = Vector3.one;
+
+            return tParent;
+        }
+
+        private static void CleanupChildNodes(GameObject prefab, Transform tParent)
+        {
+            int childCount = tParent.childCount;
+            for (int i = childCount - 1; i >= 0; i--)
+            {
+                // Cleanup of every other plume (could be more efficient)
+                // TODO: Add way to avoid certain cleanups (particles etc)
+                prefab.transform
+                    .FindChildRecursive(tParent.name)
+                    .GetChild(i)
+                    .gameObject
+                    .DestroyGameObjectImmediate();
+            }
         }
 
         private static void SetupConfig(
@@ -132,40 +124,24 @@ namespace LFO
                 var throttleData = plume.GetComponent<LFOThrottleData>();
                 throttleData.PartName = partName;
                 throttleData.Material = config.GetMaterial();
-                bool volumetric = false;
 
                 if (throttleData.Material.shader.name.ToLower().Contains("volumetric"))
                 {
-                    volumetric = true;
                     plume.AddComponent<LFOVolume>();
                 }
 
                 var renderer = plume.GetComponent<MeshRenderer>();
                 var filter = plume.GetComponent<MeshFilter>();
 
-                if (volumetric)
+                if (AssetManager.GetMesh(config.MeshPath) is { } mesh)
                 {
-                    var gameObject = GameObject.CreatePrimitive(
-                        config.MeshPath.ToLower() == "cylinder"
-                            ? PrimitiveType.Cylinder
-                            : PrimitiveType.Cube
-                    );
-
-                    filter.mesh = gameObject.GetComponent<MeshFilter>().sharedMesh;
-                    UnityObject.Destroy(gameObject);
+                    filter.mesh = mesh;
                 }
                 else
                 {
-                    if (AssetManager.GetMesh(config.MeshPath) is { } mesh)
-                    {
-                        filter.mesh = mesh;
-                    }
-                    else
-                    {
-                        Logger.LogWarning(
-                            $"Couldn't find mesh at {config.MeshPath} for {config.TargetGameObject}"
-                        );
-                    }
+                    Logger.LogWarning(
+                        $"Couldn't find mesh at {config.MeshPath} for {config.TargetGameObject}"
+                    );
                 }
 
                 ConfigManager.RegisterPlumeConfig(partName, plume.name, config);

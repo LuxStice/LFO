@@ -1,13 +1,16 @@
 ﻿using System.Reflection;
 using BepInEx;
+using BepInEx.Logging;
 using HarmonyLib;
 using JetBrains.Annotations;
+using LFO.Assets;
 using LFO.Shared;
 using LFO.Shared.Configs;
 using SpaceWarp;
 using SpaceWarp.API.Loading;
 using SpaceWarp.API.Mods;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using ILogger = LFO.Shared.ILogger;
 using UnityObject = UnityEngine.Object;
 
@@ -51,20 +54,34 @@ public class LFOPlugin : BaseSpaceWarpPlugin
 
     private const string PlumeConfigAssetPrefix = "lfo/plumes";
 
+    internal new ManualLogSource Logger;
+
+    internal readonly Dictionary<string, TextAsset> PlumeConfigCache = new();
+
     private void Awake()
     {
+        Instance = this;
+        Logger = base.Logger;
+
         Assembly.LoadFrom(System.IO.Path.Combine(
             System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!,
             "LFO.Editor.dll"
         ));
 
+        Logger.LogDebug($"Registering {nameof(PlumeResourceProvider)} as resource provider.");
+        Addressables.ResourceManager.ResourceProviders.Add(new PlumeResourceProvider());
+        Logger.LogDebug($"Registering {nameof(PlumeResourceLocator)} as resource locator.");
+        Addressables.AddResourceLocator(new PlumeResourceLocator());
+
+        Logger.LogDebug($"Registering 'RegisterJsonPlumesAsAddressables' as a loading action.");
         Loading.AddAssetLoadingAction(
             "plumes",
             "Loading LFO plumes",
-            ImportPlumes,
+            RegisterJsonPlumesAsAddressables,
             "json"
         );
 
+        Logger.LogDebug($"Registering 'ImportAddressablePlumes' as a loading action.");
         Loading.AddAddressablesLoadingAction<TextAsset>(
             "Loading FLO plumes from addressables",
             Constants.ConfigLabel,
@@ -82,28 +99,41 @@ public class LFOPlugin : BaseSpaceWarpPlugin
     {
         base.OnInitialized();
 
-        Instance = this;
-
         ServiceProvider.RegisterService<ILogger>(new BepInExLogger(Logger));
         ServiceProvider.RegisterService<IAssetManager>(new RuntimeAssetManager(Constants.AssetLabel));
 
         Harmony.CreateAndPatchAll(typeof(LFOPlugin).Assembly);
     }
 
-    private static List<(string name, UnityObject asset)> ImportPlumes(string internalPath, string filename)
+    private List<(string name, UnityObject asset)> RegisterJsonPlumesAsAddressables(
+        string internalPath,
+        string filename
+    )
     {
-        string jsonData = File.ReadAllText(filename);
+        var assets = new List<(string name, UnityObject asset)>();
 
-        RegisterPlumeConfig(filename, jsonData);
-
-        return new List<(string name, UnityObject asset)>
+        try
         {
-            ($"{PlumeConfigAssetPrefix}/{internalPath}", new TextAsset(jsonData))
-        };
+            Logger.LogDebug($"Registering {filename} as addressable asset.");
+            var asset = new TextAsset(File.ReadAllText(filename))
+            {
+                name = filename
+            };
+
+            assets.Add(($"{PlumeConfigAssetPrefix}/{internalPath}", asset));
+            PlumeConfigCache[filename] = asset;
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex);
+        }
+
+        return assets;
     }
 
-    private static void ImportAddressablePlumes(TextAsset asset)
+    private void ImportAddressablePlumes(TextAsset asset)
     {
+        Logger.LogDebug($"Registering {asset.name} as a plume config from addressables.");
         RegisterPlumeConfig(asset.name, asset.text);
     }
 

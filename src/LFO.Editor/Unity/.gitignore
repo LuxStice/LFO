@@ -72,8 +72,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
 # Temporary auto-generated Android Assets
-/[Aa]ssets/[Ss]treamingAssets/aa.meta
-/[Aa]ssets/[Ss]treamingAssets/aa/*
+/[Aa]ssets/[Ss]treamingAssets.meta
+/[Aa]ssets/[Ss]treamingAssets
 
 # Packed Asset bundles
 /[Aa]ssets/[Aa]sset[Bb]undles.meta
@@ -81,3 +81,17 @@ crashlytics-build.properties
 
 # Imported KSP2_x64
 /[Pp]ackages/[Kk][Ss][Pp]2_[Xx]64
+
+# Exported test plumes
+/[Aa]ssets/plugin_template
+/[Aa]ssets/plugin_template.meta
+/[Aa]ssets/LFO
+/[Aa]ssets/LFO.meta
+
+# KSP2 Unity Tools "Fix Unity" script
+/[Aa]ssets/ThisScriptFixesUnity.cs
+/[Aa]ssets/ThisScriptFixesUnity.cs.meta
+
+# ThunderKit settings
+/[Aa]ssets/ThunderKitSettings
+/[Aa]ssets/ThunderKitSettings.meta

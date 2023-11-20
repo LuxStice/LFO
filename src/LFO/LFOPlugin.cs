@@ -1,13 +1,16 @@
 ﻿using System.Reflection;
 using BepInEx;
+using BepInEx.Logging;
 using HarmonyLib;
 using JetBrains.Annotations;
+using LFO.Assets;
 using LFO.Shared;
 using LFO.Shared.Configs;
 using SpaceWarp;
 using SpaceWarp.API.Loading;
 using SpaceWarp.API.Mods;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using ILogger = LFO.Shared.ILogger;
 using UnityObject = UnityEngine.Object;
 
@@ -49,67 +52,100 @@ public class LFOPlugin : BaseSpaceWarpPlugin
 
     #endregion
 
-    private const string BundlePath = "assets/bundles/lfo-resources";
     private const string PlumeConfigAssetPrefix = "lfo/plumes";
 
-    public List<string> RequestedShaders = new();
-    public List<string> RequestedMeshes = new(); // TODO: Add caching of meshes
+    internal new ManualLogSource Logger;
+
+    internal readonly Dictionary<string, TextAsset> PlumeConfigCache = new();
 
     private void Awake()
     {
+        Instance = this;
+        Logger = base.Logger;
+
         Assembly.LoadFrom(System.IO.Path.Combine(
             System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!,
             "LFO.Editor.dll"
         ));
 
-        Loading.AddAssetLoadingAction("plumes", "Loading LFO plumes", ImportPlumes, "json");
+        Logger.LogDebug($"Registering {nameof(PlumeResourceProvider)} as resource provider.");
+        Addressables.ResourceManager.ResourceProviders.Add(new PlumeResourceProvider());
+        Logger.LogDebug($"Registering {nameof(PlumeResourceLocator)} as resource locator.");
+        Addressables.AddResourceLocator(new PlumeResourceLocator());
+
+        Logger.LogDebug($"Registering 'RegisterJsonPlumesAsAddressables' as a loading action.");
+        Loading.AddAssetLoadingAction(
+            "plumes",
+            "Loading LFO plumes",
+            RegisterJsonPlumesAsAddressables,
+            "json"
+        );
+
+        Logger.LogDebug($"Registering 'ImportAddressablePlumes' as a loading action.");
+        Loading.AddAddressablesLoadingAction<TextAsset>(
+            "Loading FLO plumes from addressables",
+            Constants.ConfigLabel,
+            ImportAddressablePlumes
+        );
     }
 
     public override void OnPreInitialized()
     {
         base.OnPreInitialized();
         Path = PluginFolderPath;
-
-        ServiceProvider.RegisterService<ILogger>(new BepInExLogger(Logger));
-        ServiceProvider.RegisterService<IAssetManager>(new AssetManager($"{PluginFolderPath}/{BundlePath}"));
     }
 
     public override void OnInitialized()
     {
         base.OnInitialized();
 
-        Instance = this;
+        ServiceProvider.RegisterService<ILogger>(new BepInExLogger(Logger));
+        ServiceProvider.RegisterService<IAssetManager>(new RuntimeAssetManager(Constants.AssetLabel));
 
         Harmony.CreateAndPatchAll(typeof(LFOPlugin).Assembly);
     }
 
-    private List<(string name, UnityObject asset)> ImportPlumes(string internalPath, string filename)
+    private List<(string name, UnityObject asset)> RegisterJsonPlumesAsAddressables(
+        string internalPath,
+        string filename
+    )
     {
-        string jsonData = File.ReadAllText(filename);
         var assets = new List<(string name, UnityObject asset)>();
 
-        LFOConfig config = LFOConfig.Deserialize(jsonData);
-
-        if (config.PlumeConfigs is null && config.PartName is null)
+        try
         {
-            throw new Exception($"Plume config found at {filename} is not valid!");
-        }
-
-        ConfigManager.RegisterLFOConfig(config.PartName, config);
-        assets.Add(($"{PlumeConfigAssetPrefix}/{internalPath}", new TextAsset(jsonData)));
-
-        foreach (List<PlumeConfig> plumeConfigList in config.PlumeConfigs!.Values)
-        {
-            foreach (PlumeConfig plumeConfig in plumeConfigList)
+            Logger.LogDebug($"Registering {filename} as addressable asset.");
+            var asset = new TextAsset(File.ReadAllText(filename))
             {
-                string shaderName = plumeConfig.ShaderSettings.ShaderName;
-                if (!RequestedShaders.Contains(shaderName))
-                {
-                    RequestedShaders.Add(shaderName);
-                }
-            }
+                name = filename
+            };
+
+            assets.Add(($"{PlumeConfigAssetPrefix}/{internalPath}", asset));
+            PlumeConfigCache[filename] = asset;
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex);
         }
 
         return assets;
+    }
+
+    private void ImportAddressablePlumes(TextAsset asset)
+    {
+        Logger.LogDebug($"Registering {asset.name} as a plume config from addressables.");
+        RegisterPlumeConfig(asset.name, asset.text);
+    }
+
+    private static void RegisterPlumeConfig(string filename, string json)
+    {
+        LFOConfig config = LFOConfig.Deserialize(json);
+
+        if (config.PlumeConfigs is null && config.PartName is null)
+        {
+            throw new Exception($"Plume config {filename} is not valid!");
+        }
+
+        ConfigManager.RegisterLFOConfig(config.PartName, config);
     }
 }

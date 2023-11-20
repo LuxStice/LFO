@@ -1,0 +1,355 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: lfo
+  m_EditorClassIdentifier: 
+  m_GroupName: lfo
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3dabdce16b69e5f46a8a0f1efb418e6c
+  m_SerializeEntries:
+  - m_GUID: 5098c0aa071a72747b66f7a8f59e9d2d
+    m_Address: lfo/Flames
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5b44fb62d59f9a43b58b957dd067fe7
+    m_Address: lfo/fx-katniss-noise-3-blurred
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1be4f4d405bbfa4e90aa3e14d3da7d0
+    m_Address: lfo/shock_1_pt2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 602ce1cebe7d89947b300600c3c0d78e
+    m_Address: lfo/fx-katniss-noise-7
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 521733b69e0402a4f945110882f012cc
+    m_Address: lfo/bell_p2_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d8491205127eb0447bde664b409d3c22
+    m_Address: lfo/fx-noise-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32eadd0217942d4419ab5de7ac5096c8
+    m_Address: lfo/fx-katniss-noise-5-blurred
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a7e28bb1094299b4bb90d415cd74c501
+    m_Address: lfo/fx-katniss-noise-4-blurred
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c49c7ebfab157542a1126bf99561c75
+    m_Address: lfo/DepthMask
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 173ad6e4f5d355a40be8b578bcb73d62
+    m_Address: lfo/bell_j_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 64b3f29dfe44f5143aecd3dbbefb00d8
+    m_Address: lfo/Cube
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ddb7b3cd9c84e324081a60585801c7dd
+    m_Address: lfo/cylinder
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 30ad007aee3b6374ebd4e56e5b08dcc4
+    m_Address: lfo/shock_1_pt1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c74924a3430592543923d76e8c5ea46b
+    m_Address: lfo/shock_1_pt3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b64a4b60ea61914db683dd554eba84c
+    m_Address: lfo/shock_1_pt4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c717b07c89e79f64f834b4756f44dc60
+    m_Address: lfo/0.01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a1a1f1f1a64c794b8ff1e12f364bb64
+    m_Address: lfo/3D Noise 2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b4ac3318a7efe474bad622f8d5ecdce8
+    m_Address: lfo/3D Noise 3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b016919ffe90be04d9bedcf5abf6713c
+    m_Address: lfo/3D Noise
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4273c141445d824b8c3ac7297c8ac2a
+    m_Address: lfo/3DNoise
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f3f93014ee08dbc46b5d6dd484bdb800
+    m_Address: lfo/9bae062709f8a7803769ba955cde3c4a
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db58a19e98e34e343b2a43097616e035
+    m_Address: lfo/fx-katniss-noise-1-blurred
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d3e62f575bdf8f64e9ed3085b8414241
+    m_Address: lfo/fx-katniss-noise-1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 316a0461d9fdfe844b39a04d6304bbaf
+    m_Address: lfo/fx-katniss-noise-2-extradense
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4fd21cc058613194082a1e71b5e4dd9a
+    m_Address: lfo/fx-katniss-noise-2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4081ef82286df2744b66a079e25afcfa
+    m_Address: lfo/fx-katniss-noise-3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8eb1590f648d41b4699fee737903dbe4
+    m_Address: lfo/fx-katniss-noise-4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4edf16dc6913d534c9fd977566301ca6
+    m_Address: lfo/fx-katniss-noise-5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41cedaaea654e1b49ac280ec8b092c60
+    m_Address: lfo/fx-katniss-noise-6
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18879f59849dc6f4999383c9334bc1a1
+    m_Address: lfo/fx-katniss-noise-8
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d3ec2ea1a1531cd4c93f09d882b3d76c
+    m_Address: lfo/fx-noise-2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20cc6f55e73543c4bb369c0691765eab
+    m_Address: lfo/fx-noise-3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36edd7739ac28a748a71a879772c3b9c
+    m_Address: lfo/fx-noise-4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0a29c8fb03f92d4cb3303a7f3aacf55
+    m_Address: lfo/fx_flaresimple02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0dd14e28af4add54f9d643e958408fd2
+    m_Address: lfo/noise_rgb_01_v1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 442d2022038cae940a5486cb61bb3a04
+    m_Address: lfo/Ondulation
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3908d45f2c04734d9b969ccf5b99fcb
+    m_Address: lfo/Additive
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 669f0b0525e51a248be7e2ca179919a3
+    m_Address: lfo/DepthMask
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55e28237f8cbd7141ae06b06d2707077
+    m_Address: lfo/lfo-additive
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 63791da6be881f14fbb20aafb9088f72
+    m_Address: lfo/lfo-volumetric (additive)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d6e3735ea44a3345af82e660155face
+    m_Address: lfo/lfo-volumetric (profiled)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 43f99f48bb3718b4ab56b5285fdd08eb
+    m_Address: lfo/lfo-volumetric
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3724f925f1504945979aa7abeb6f1e2
+    m_Address: lfo/lfoadditive 2.0
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f772fb23f7cbd5b429c3569d0cf9aa53
+    m_Address: lfo/Volumetric (Additive)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57e78a58d6b962541a44f851736d8f7d
+    m_Address: lfo/Volumetric (Distortion)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9dc3547f9a3878844b70b677a09d4244
+    m_Address: lfo/Volumetric (Mach Additive)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8c4fbb221d2fc94da32a16d5d2fa4f8
+    m_Address: lfo/Volumetric (Opaque)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 837c8a36c26aef241bf1a37240ba9ded
+    m_Address: lfo/Volumetric (Profiled)
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48d8804ffdec1b946905e3344a8deee1
+    m_Address: lfo/Volumetric
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42b89b29e83676042838d98461e63323
+    m_Address: lfo/0.1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e56c0237be894314eb117e3b5c3f916c
+    m_Address: lfo/0.02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96222890be6a1964ca1e2698679eb0b0
+    m_Address: lfo/0.2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ffd415fc30eafc448e14d6e8532a4ba
+    m_Address: lfo/0.05
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cee2382d8136f594c990f1c43e0358ab
+    m_Address: lfo/0.5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 550bbb14689501241850f97768b66082
+    m_Address: lfo/ion_thruster
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - lfo_assets
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 7e695d789430d6244b590c22468d224e, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 61641b526db3405418e33ee7ae16a9af, type: 2}
+    - {fileID: 11400000, guid: 3f90bee8716f38946b2cac405af60430, type: 2}

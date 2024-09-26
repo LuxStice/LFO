@@ -7,6 +7,9 @@
 _UpgradeReport_Files/
 ./[Pp]ackages/
 
+# Old stuff that doesn't belong on the GH repo
+Archive/
+
 # Mod template folders
 [Bb]uild/
 [Dd]ist/
@@ -22,6 +25,9 @@ _UpgradeReport_Files/
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+# Blender Junk
+*.blend1
 
 # Local History for Visual Studio Code
 .history/
